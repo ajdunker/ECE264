@@ -9,6 +9,7 @@
  */
 int my_strlen(const char * s)
 {
+  //return the string length
   return strlen(s);
 }
 
@@ -20,7 +21,21 @@ int my_strlen(const char * s)
  */
 int my_countchar(const char * s, char c)
 {
-    return 0;
+  //initialize variables
+  int sum = 0;
+  int i;
+  //loop to go through string
+  for (i = 0 ; i < strlen(s); i++)
+    {
+      //test if characters match
+      if (s[i] == c)
+	{
+	  //increment if they match
+	  sum += 1;
+	}
+    }
+  //return final number
+  return sum;
 }
 
 /**
