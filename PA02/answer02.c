@@ -9,7 +9,7 @@
  */
 int my_strlen(const char * s)
 {
-    return 0;
+  return strlen(s);
 }
 
 /**
