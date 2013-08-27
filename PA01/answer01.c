@@ -45,14 +45,17 @@
 */
 int addElement(int * array, int length)
 {
+  //initialize variables
   int sum = 0;
   int i;
   //loop to add elements of array
   for (i = 0; i < length; i++)
     {
+      //add to the sum
       sum += array[i];
     }
-    return sum;
+  //return the final number
+  return sum;
 }
 /*
  * =================================================================
@@ -78,17 +81,21 @@ int addElement(int * array, int length)
 */
 int countNegative(int * array, int length)
 {
+  //initialize the variables
   int i;
   int sum = 0;
   //loop to count all the negatives
   for (i = 0; i < length; i++)
     {
+      //check if negative
       if (array[i] < 0)
 	{
+	  //add if negative
 	  sum += 1;
 	}
     }
-    return sum;
+  //return the final number
+  return sum;
 }
 /*
  * =================================================================
@@ -136,16 +143,21 @@ int countNegative(int * array, int length)
 */
 int isIncreasing(int * array, int length)
 {
+  //initialize variables
   int i;
   int track;
+  //loop for going throuh array
   for (i = 0; i < (length-1); i++)
     {
+      //check if increasing or not
       if (array[i] < array[i+1])
 	{
+	  //increasing
 	  track = 1;
 	}
       else
 	{
+	  //not increasing, end the function
 	  return 0;
 	}
     }
