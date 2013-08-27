@@ -78,7 +78,7 @@ void my_strlower(char * s)
   for (i = 0; i < strlen(s); i++)
     {
       //convert to lower case
-      s[i] = toupper(s[i]);
+      s[i] = tolower(s[i]);
     }
   //return final product
   return s;
