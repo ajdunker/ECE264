@@ -49,7 +49,16 @@ int my_countchar(const char * s, char c)
  */
 void my_strupper(char * s)
 {
-
+  //initialize variables
+  int i;
+  //loop to move through string
+  for (i = 0; i < strlen(s); i++)
+    {
+      //convert to upper case
+      s[i] = toupper(s[i]);
+    }
+  //return final product
+  return s;
 }
 
 /**
