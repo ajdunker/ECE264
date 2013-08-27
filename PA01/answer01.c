@@ -81,6 +81,7 @@ int addElement(int * array, int length)
 */
 int countNegative(int * array, int length)
 {
+  //comment test
   //initialize the variables
   int i;
   int sum = 0;
