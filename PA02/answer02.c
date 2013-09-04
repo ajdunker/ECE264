@@ -9,8 +9,15 @@
  */
 int my_strlen(const char * s)
 {
-  //return the string length
-  return strlen(s);
+  //initialize counting variable
+  int count = 0;
+  //start loop to count characters in string
+  while(*(s+count) != '\0')
+    {
+      //increment
+      count++;
+    }
+  return count;
 }
 
 /**
@@ -96,7 +103,12 @@ void my_strlower(char * s)
  */
 void my_strcpy(char * s1, const char * s2)
 {
-
+  while(*s1 != '\0')
+    {
+      *s1 = *s2;
+      s1++;
+      s2++;
+    }
 }
 
 /**
