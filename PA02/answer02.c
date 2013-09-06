@@ -103,12 +103,8 @@ void my_strlower(char * s)
  */
 void my_strcpy(char * s1, const char * s2)
 {
-  while(*s1 != '\0')
-    {
-      *s1 = *s2;
-      s1++;
-      s2++;
-    }
+  //loop through copying until the pointer is null
+  while(*s1++ = *s2++);
 }
 
 /**
@@ -123,7 +119,18 @@ void my_strcpy(char * s1, const char * s2)
  */
 void my_strncpy(char * s1, const char * s2, int num)
 {
-    
+  //initialize variable
+  int i = 1;
+  //while less than input number and s2 is not over
+  while(i<num && s2[i] != '\0')
+    {
+      //copy character
+      s1[i] = s2[i];
+      //increment
+      i++;
+    }
+  //set end character
+  s1[i] = '\0';
 }
 
 
@@ -138,7 +145,21 @@ void my_strncpy(char * s1, const char * s2, int num)
  */
 void my_strcat(char * s1, const char * s2) 
 {
-    
+  //get sizes of strings
+  int size1 = my_strlen(s1);
+  int size2 = my_strlen(s2);
+  int i;
+  
+  //replace null with space
+  s1[size1] = ' ';
+  //loop through
+  for(i = 0; i < size2 && s2[i] != '/0'; i++)
+    {
+      //add on the character
+      s1[size1 + i] = s2[i];
+    }
+  //return concatenized strings
+  return s1;
 }
 
 /** 
@@ -152,7 +173,18 @@ void my_strcat(char * s1, const char * s2)
  */
 void my_strncat(char * s1, const char * s2, int num)
 {
-   
+  //get length of string
+  int size = my_strlen(s1);
+  int i;
+  
+  //loop through adding the number of characters as long as s2 isn't null
+  for(i = 0; i < num && s2[i] != '/0'; i++)
+    {
+      //add character to end
+      s1[size + i] = s2[i];
+    }
+  //return string
+  return s1;
 }
 
 /**
@@ -167,7 +199,33 @@ void my_strncat(char * s1, const char * s2, int num)
 
 const char *my_strstr(const char * s1, const char * s2)
 {
-    return NULL;
+  //if s2 is not
+  if(!*s2) return s1;
+  //set first pointer to the first character of s1
+  char *p1 = (char*)s1;
+  while (*p1) //while pointer is not null
+    {
+      //set beginning of search
+      char *p1Begin = p1;
+      char *p2 = (char*)s2; //Set second pointer to beginning of target
+      //while pointers are not null and characters math
+      while(*p1 && *p2 && *p1 == *p2) 
+	{
+	  //increment pointers
+	  p1++;
+	  p2++;
+	}
+      //if p2 is not null
+      if(!*p2)
+	{
+	  //return pointer
+	  return p1Begin;
+	}
+      //add to p1
+      p1 = p1Begin + 1;
+    }
+  //return null
+  return NULL;
 }
 
 
