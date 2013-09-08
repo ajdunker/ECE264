@@ -62,7 +62,23 @@
 
 int * readIntegers(const char * filename, int * numberOfIntegers)
 {
-    return NULL;
+  FILE *ifp;
+  int a, i, *array;
+
+  //open file
+  ifp = fopen(filename, "r");
+  //read file to determine number of Integers
+  while(fscanf(ifp, "%d", &a) == 1)
+    *numberOfIntegers += 1;
+  //allocate the neccessary memory for the array
+  array = malloc(*numberOfIntegers * sizeof(int));
+  //set the file pointer back to the beginning fo the file
+  fseek(ifp, 0, SEEK_SET);
+  //read all the numbers and store them into an array
+  for(i = 0; i < *numberOfIntegers; i++)
+    fscanf(ifp, "%d", &array[i]);
+  fclose(ifp);
+  return array;
 }
 
 /**
@@ -102,10 +118,21 @@ int * readIntegers(const char * filename, int * numberOfIntegers)
  * sort.
  *
  */
+
+void swap(int *x, int *y)
+{
+  int temp;
+  temp = *x;
+  *x = *y;
+  *y = temp;
+}
+
 void sort(int * arr, int length)
 {
-    
+  
 }
+
+
 
 /**
  * Use binary search to find 'key' in a sorted array of integers
