@@ -123,9 +123,9 @@ int sorthelper(int * arr, int low, int high)
 {
   int length, i;
   int less, greater, equal = 0;
-  int * arr_low;
-  int * arr_high;
-  int * arr_equal;
+  int *arr_low;
+  int *arr_high;
+  int *arr_equal;
   length = high - low;
   if(length > 1)
     {
@@ -162,21 +162,30 @@ int sorthelper(int * arr, int low, int high)
 	      c++;
 	    }
 	}
-      quicksort(arr_low, 0, less - 1);
-      quicksort(arr_high, 0, greater - 1);
+      sorthelper(arr_low, 0, less - 1);
+      sorthelper(arr_high, 0, greater - 1);
       a = 0;
-      for(i = 0; i < length; i++)
+      for(i = 0; i < less; i++)
 	{
-	  
+	  arr[i] = arr_low[i];
+	}
+      for(i = 0; i < equal; i++)
+	{
+	  arr[i+low] = arr_equal[i];
+	}
+      for(i = 0; i < greater; i++)
+	{
+	  arr[i+low+equal] = arr_high[i];
 	}
     }
+  return 0;
 }
 
 void sort(int * arr, int length)
 {
   if(length > 1)
     {
-      quicksort(arr, 0, length - 1);
+      sorthelper(arr, 0, length - 1);
     }
 }
 
