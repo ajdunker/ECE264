@@ -118,75 +118,54 @@ int * readIntegers(const char * filename, int * numberOfIntegers)
  * sort.
  *
  */
-
-int sorthelper(int * arr, int low, int high)
+//Function to swap values
+void swap(int *x, int*y)
 {
-  int length, i;
-  int less, greater, equal = 0;
-  int *arr_low;
-  int *arr_high;
-  int *arr_equal;
-  length = high - low;
-  if(length > 1)
+  int temp;
+  temp = *x;
+  *x = *y;
+  *y = temp;
+}
+void sorthelper(int * arr, int low, int high)
+{
+  // declare variables
+  int pivot,pivot_act,a,b;
+  if(low < high)
     {
-      int pivot;
-      pivot = arr[low];
-      for(i = 0; i < length; i++)
+      //set pivot to middle value
+      pivot = (low+high)/2;
+      //move pivot to first value
+      swap(&arr[low],&arr[pivot]);
+      //read the actual pivot value
+      pivot_act = arr[low];
+      a = low + 1;
+      b = high;
+      
+      while(a <= b)
 	{
-	  if(arr[i] < pivot)
-	    less += 1;
-	  if(arr[i] == pivot)
-	    equal += 1;
-	  if(arr[i] > pivot)
-	    greater += 1;
-	}
-      arr_low = malloc(less * sizeof(int));
-      arr_high = malloc(greater * sizeof(int));
-      arr_equal = malloc(equal * sizeof(int));
-      int a, b, c = 0;
-      for(i = 0; i < length; i++)
-	{
-	  if(arr[i] < pivot)
+	  while((a <= high) && (arr[a] <= pivot_act))
 	    {
-	      arr_low[a] = arr[i];
 	      a++;
 	    }
-	  if(arr[i] == pivot)
+	  while((b >= low) && (arr[b] > pivot_act))
 	    {
-	      arr_equal[b] = arr[i];
-	      b++;
+	      b--;
 	    }
-	  if(arr[i] > pivot)
+	  if(a < b)
 	    {
-	      arr_high[c] = arr[i];
-	      c++;
+	      swap(&arr[a],&arr[b]);
 	    }
 	}
-      sorthelper(arr_low, 0, less - 1);
-      sorthelper(arr_high, 0, greater - 1);
-      a = 0;
-      for(i = 0; i < less; i++)
-	{
-	  arr[i] = arr_low[i];
-	}
-      for(i = 0; i < equal; i++)
-	{
-	  arr[i+low] = arr_equal[i];
-	}
-      for(i = 0; i < greater; i++)
-	{
-	  arr[i+low+equal] = arr_high[i];
-	}
-    }
-  return 0;
-}
+      swap(&arr[low],&arr[b]);
 
+      sorthelper(arr, low, a-1);
+      sorthelper(arr, b+1, high);
+    }
+}
 void sort(int * arr, int length)
 {
   if(length > 1)
-    {
-      sorthelper(arr, 0, length - 1);
-    }
+    sorthelper(arr, 0, length - 1);
 }
 
 /**
@@ -254,11 +233,12 @@ int searchhelper(int * arr, int low, int high, int key)
     {
       return searchhelper(arr, ind + 1, high, key);
     }
+  return -1;
 }
 
 int search(int * arr, int length, int key)
 {
-  return searchhelper(arr, 0, length, key);
+  return searchhelper(arr, 0, length - 1, key);
 }
 
 
