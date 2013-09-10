@@ -138,32 +138,40 @@ void sorthelper(int * arr, int low, int high)
       swap(&arr[low],&arr[pivot]);
       //read the actual pivot value
       pivot_act = arr[low];
+      //set the incrementing variables
       a = low + 1;
       b = high;
-      
+      //run while moving inwards from the left and right of the array
       while(a <= b)
 	{
+	  //look for a value which is greater than the pivot
 	  while((a <= high) && (arr[a] <= pivot_act))
 	    {
+	      //increment when not found
 	      a++;
 	    }
+	  //look for a value less than the pivot
 	  while((b >= low) && (arr[b] > pivot_act))
 	    {
+	      //decrement when not found
 	      b--;
 	    }
+	  //swap the values to create seperate lists
 	  if(a < b)
 	    {
 	      swap(&arr[a],&arr[b]);
 	    }
 	}
+      //swap the pivot into the middle
       swap(&arr[low],&arr[b]);
-
+      //sort the two new lists
       sorthelper(arr, low, a-1);
       sorthelper(arr, b+1, high);
     }
 }
 void sort(int * arr, int length)
 {
+  //make sure there's more than 1 value
   if(length > 1)
     sorthelper(arr, 0, length - 1);
 }
