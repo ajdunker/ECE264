@@ -1,4 +1,3 @@
-
 #include "pa03.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -77,6 +76,7 @@ int * readIntegers(const char * filename, int * numberOfIntegers)
   //read all the numbers and store them into an array
   for(i = 0; i < *numberOfIntegers; i++)
     fscanf(ifp, "%d", &array[i]);
+  //close the file
   fclose(ifp);
   return array;
 }
@@ -119,20 +119,66 @@ int * readIntegers(const char * filename, int * numberOfIntegers)
  *
  */
 
-void swap(int *x, int *y)
+int sorthelper(int * arr, int low, int high)
 {
-  int temp;
-  temp = *x;
-  *x = *y;
-  *y = temp;
+  int length, i;
+  int less, greater, equal = 0;
+  int * arr_low;
+  int * arr_high;
+  int * arr_equal;
+  length = high - low;
+  if(length > 1)
+    {
+      int pivot;
+      pivot = arr[low];
+      for(i = 0; i < length; i++)
+	{
+	  if(arr[i] < pivot)
+	    less += 1;
+	  if(arr[i] == pivot)
+	    equal += 1;
+	  if(arr[i] > pivot)
+	    greater += 1;
+	}
+      arr_low = malloc(less * sizeof(int));
+      arr_high = malloc(greater * sizeof(int));
+      arr_equal = malloc(equal * sizeof(int));
+      int a, b, c = 0;
+      for(i = 0; i < length; i++)
+	{
+	  if(arr[i] < pivot)
+	    {
+	      arr_low[a] = arr[i];
+	      a++;
+	    }
+	  if(arr[i] == pivot)
+	    {
+	      arr_equal[b] = arr[i];
+	      b++;
+	    }
+	  if(arr[i] > pivot)
+	    {
+	      arr_high[c] = arr[i];
+	      c++;
+	    }
+	}
+      quicksort(arr_low, 0, less - 1);
+      quicksort(arr_high, 0, greater - 1);
+      a = 0;
+      for(i = 0; i < length; i++)
+	{
+	  
+	}
+    }
 }
 
 void sort(int * arr, int length)
 {
-  
+  if(length > 1)
+    {
+      quicksort(arr, 0, length - 1);
+    }
 }
-
-
 
 /**
  * Use binary search to find 'key' in a sorted array of integers
@@ -155,6 +201,7 @@ void sort(int * arr, int length)
  * the key is the same as this element, you have found the index.  If
  * the key is greater than this element, you can discard the first
  * half of the array.  If the key is smaller, you can discard the
+
  * second half of the array.  Now you have only half of the array to
  * search.  Continue this procedure until either you find the index or
  * it is impossible to find a match.
@@ -178,9 +225,31 @@ void sort(int * arr, int length)
  * }
  * return -1;
  */
+int searchhelper(int * arr, int low, int high, int key)
+{
+  /* search the key in the array[low] and array[high] */
+  if (low > high)
+    {
+      return -1; /*not found*/
+    }
+  int ind = (low + high) / 2;
+  if (arr[ind] == key) /*found it*/
+    {
+      return ind;
+    }
+  if (arr[ind] > key) /*discard upper half*/ 
+    {
+      return searchhelper(arr, low, ind - 1, key);
+    }
+  if (arr[ind] < key) /*discard lower half*/
+    {
+      return searchhelper(arr, ind + 1, high, key);
+    }
+}
+
 int search(int * arr, int length, int key)
 {
-    return -1;
+  return searchhelper(arr, 0, length, key);
 }
 
 
