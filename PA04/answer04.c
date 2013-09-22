@@ -15,7 +15,7 @@
 #include "pa04.h"
 #include <stdio.h>
 #include <stdlib.h>
-void PartitionHelp(int value, int * array, int incr);
+void PartitionHelp(int value, int * array, int ind);
 void Print(int value, int * array);
 
 
@@ -34,19 +34,33 @@ void Print(int value, int * array);
 
 void partitionAll(int value)
 {
-  printf("partitionAll %d\n", value);
-  int * array = (int * )malloc(sizeof(int) * value);
-  
+  int *array = malloc(sizeof(int) * value);
+  PartitionHelp(value, array, 0);
+  free(array);
 }
-void PartitionHelp(int value, int * array, int incr)
+void PartitionHelp(int value, int * array, int ind)
 {
-  int begin, i;
-  if (value < 1)
+  int i;
+  if (value == 0)
     {
-      return ;
+      Print(ind, array);
     }
-  array[incr] = val;
-  
+  for(i = 1; i <= value; i++)
+    {
+      array[ind] = i;
+      PartitionHelp(value-i, array, ind+1);
+    }
+}
+void Print(int value, int * array)
+{
+  int i;
+  printf("= ");
+  for(i=0; i < value-1; i++)
+    {
+      printf("%d + ", array[i]);
+    }
+  printf("%d", array[i]);
+  printf("\n");
 }
 /*
  * =================================================================
@@ -67,12 +81,17 @@ void PartitionHelp(int value, int * array, int incr)
  *
  */
 
+void partInc(int n, int * a, int ind)
+{
+  
+}
 
 void partitionIncreasing(int value)
 {
   printf("partitionIncreasing %d\n", value);
 
 }
+
 
 /*
  * =================================================================
