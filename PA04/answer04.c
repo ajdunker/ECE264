@@ -89,7 +89,6 @@ void partInc(int n, int * a, int ind)
 void partitionIncreasing(int value)
 {
   printf("partitionIncreasing %d\n", value);
-
 }
 
 
