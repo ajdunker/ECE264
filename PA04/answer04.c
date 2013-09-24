@@ -34,6 +34,7 @@ void Print(int value, int * array);
 
 void partitionAll(int value)
 {
+  printf("partitionAll %d\n", value);
   int *array = malloc(sizeof(int) * value);
   PartitionHelp(value, array, 0);
   free(array);
@@ -81,14 +82,32 @@ void Print(int value, int * array)
  *
  */
 
-void partInc(int n, int * a, int ind)
+void partInc(int value, int * array, int ind)
 {
-  
+  int i;
+  if (value == 0)
+    {
+      Print(ind, array);
+    }
+  for(i = 1; i <= value; i++)
+    {
+      if(ind > 0)
+	{
+	  if(i <= array[ind-1])
+	    {
+	      continue;
+	    }
+	}
+      array[ind] = i;
+      partInc(value-i, array, ind+1);
+    }
 }
-
 void partitionIncreasing(int value)
 {
   printf("partitionIncreasing %d\n", value);
+  int *array = malloc(sizeof(int) * value);
+  partInc(value, array, 0);
+  free(array);
 }
 
 
@@ -111,11 +130,32 @@ void partitionIncreasing(int value)
  *
  */
 
-
+void partDec(int value, int * array, int ind)
+{
+  int i;
+  if (value == 0)
+    {
+      Print(ind, array);
+    }
+  for(i = 1; i <= value; i++)
+    {
+      if(ind > 0)
+	{
+	  if(i >= array[ind-1])
+	    {
+	      continue;
+	    }
+	}
+      array[ind] = i;
+      partDec(value-i, array, ind+1);
+    }
+}
 void partitionDecreasing(int value)
 {
   printf("partitionDecreasing %d\n", value);
-  
+  int *array = malloc(sizeof(int) * value);
+  partDec(value, array, 0);
+  free(array);
 
 }
 
@@ -136,11 +176,29 @@ void partitionDecreasing(int value)
  * generates invalid partitions and checks validity before printing.
  */
 
-
+void partOdd(int value, int * array, int ind)
+{
+  int i;
+  if (value == 0)
+    {
+      Print(ind, array);
+    }
+  for(i = 1; i <= value; i++)
+    {
+      if(i % 2 == 0 && i > 1)
+	{
+	  continue;
+	}
+      array[ind] = i;
+      partOdd(value-i, array, ind+1);
+    }
+}
 void partitionOdd(int value)
 {
   printf("partitionOdd %d\n", value);
-  
+  int *array = malloc(sizeof(int) * value);
+  partOdd(value, array, 0);
+  free(array);
 }
 
 /*
@@ -161,11 +219,29 @@ void partitionOdd(int value)
  * The program should generate only valid partitions.  Do not
  * generates invalid partitions and checks validity before printing.
  */
-
+void partEven(int value, int * array, int ind)
+{
+  int i;
+  if (value == 0)
+    {
+      Print(ind, array);
+    }
+  for(i = 1; i <= value; i++)
+    {
+      if(i % 2 != 0)
+	{
+	  continue;
+	}
+      array[ind] = i;
+      partEven(value-i, array, ind+1);
+    }
+}
 void partitionEven(int value)
 {
   printf("partitionEven %d\n", value);
-
+  int *array = malloc(sizeof(int) * value);
+  partEven(value, array, 0);
+  free(array);
 }
 
 /*
@@ -185,12 +261,46 @@ void partitionEven(int value)
  * The program should generate only valid partitions.  Do not
  * generates invalid partitions and checks validity before printing.
  */
-
-
+void partEvenOdd(int value, int * array, int ind)
+{
+  int i;
+  if (value == 0)
+    {
+      Print(ind, array);
+    }
+  for(i = 1; i <= value; i++)
+    {
+      if(i % 2 == 0)
+	{
+	  continue;
+	}
+      array[ind] = i;
+      partOddEven(value-i, array, ind+1);
+    }
+}
+void partOddEven(int value, int * array, int ind)
+{
+  int i;
+  if (value == 0)
+    {
+      Print(ind, array);
+    }
+  for(i = 1; i <= value; i++)
+    {
+      if(i % 2 != 0)
+	{
+	  continue;
+	}
+      array[ind] = i;
+      partEvenOdd(value-i, array, ind+1);
+    }
+}
 void partitionOddAndEven(int value)
 {
   printf("partitionOddAndEven %d\n", value);
-  
+  int *array = malloc(sizeof(int) * value);
+  partEvenOdd(value, array, 0);
+  free(array);
 }
 
 /*
@@ -209,10 +319,43 @@ void partitionOddAndEven(int value)
  * generates invalid partitions and checks validity before printing.
  */
 
-
-
+int Prime(int n)
+{
+  if(n <= 1)
+    {
+      return 0;
+    }
+  int i;
+  for(i = 2; i*i <= n; i++)
+    {
+      if(n % i == 0)
+	{
+	  return 0;
+	}
+    }
+  return 1;
+}
+void partPrime(int value, int * array, int ind)
+{
+  int i;
+  if (value == 0)
+    {
+      Print(ind, array);
+    }
+  for(i = 1; i <= value; i++)
+    {
+      if(Prime(i) == 0)
+	{
+	  continue;
+	}
+      array[ind] = i;
+      partPrime(value-i, array, ind+1);
+    }
+}
 void partitionPrime(int value)
 {
   printf("partitionPrime %d\n", value);
-
+  int *array = malloc(sizeof(int) * value);
+  partPrime(value, array, 0);
+  free(array);
 }
