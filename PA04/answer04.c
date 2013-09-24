@@ -35,17 +35,22 @@ void Print(int value, int * array);
 void partitionAll(int value)
 {
   printf("partitionAll %d\n", value);
+  //create array
   int *array = malloc(sizeof(int) * value);
+  //start the function
   PartitionHelp(value, array, 0);
+  //free the memory
   free(array);
 }
 void PartitionHelp(int value, int * array, int ind)
 {
   int i;
+  //check if value is zero if so print the array
   if (value == 0)
     {
       Print(ind, array);
     }
+  //loop through array creating each option recursively
   for(i = 1; i <= value; i++)
     {
       array[ind] = i;
@@ -54,6 +59,7 @@ void PartitionHelp(int value, int * array, int ind)
 }
 void Print(int value, int * array)
 {
+  //Print all of the array through the indice value
   int i;
   printf("= ");
   for(i=0; i < value-1; i++)
@@ -91,10 +97,13 @@ void partInc(int value, int * array, int ind)
     }
   for(i = 1; i <= value; i++)
     {
+      //Same as previous function except here, where it checks to make sure
+      // it's greater than the previous element
       if(ind > 0)
 	{
 	  if(i <= array[ind-1])
 	    {
+	      //not greater than so move on to the next part of the loop
 	      continue;
 	    }
 	}
@@ -139,10 +148,12 @@ void partDec(int value, int * array, int ind)
     }
   for(i = 1; i <= value; i++)
     {
+      //once again, just checking now that it's less than the previous
       if(ind > 0)
 	{
 	  if(i >= array[ind-1])
 	    {
+	      //not less than, so continue to next part of the loop
 	      continue;
 	    }
 	}
@@ -185,8 +196,10 @@ void partOdd(int value, int * array, int ind)
     }
   for(i = 1; i <= value; i++)
     {
+      //check that it's odd
       if(i % 2 == 0 && i > 1)
 	{
+	  //if not odd move on to the next part of the loop
 	  continue;
 	}
       array[ind] = i;
@@ -228,6 +241,7 @@ void partEven(int value, int * array, int ind)
     }
   for(i = 1; i <= value; i++)
     {
+      //check if even, if it isn't continue to the next iteration of the loop
       if(i % 2 != 0)
 	{
 	  continue;
