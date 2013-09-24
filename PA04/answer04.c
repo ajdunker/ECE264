@@ -53,7 +53,9 @@ void PartitionHelp(int value, int * array, int ind)
   //loop through array creating each option recursively
   for(i = 1; i <= value; i++)
     {
+      //set value in array
       array[ind] = i;
+      //begin recursion
       PartitionHelp(value-i, array, ind+1);
     }
 }
@@ -284,11 +286,14 @@ void partEvenOdd(int value, int * array, int ind)
     }
   for(i = 1; i <= value; i++)
     {
+      //check to make sure it's odd
       if(i % 2 == 0)
 	{
+	  //it's even so move on
 	  continue;
 	}
       array[ind] = i;
+      //go to the other function
       partOddEven(value-i, array, ind+1);
     }
 }
@@ -301,11 +306,14 @@ void partOddEven(int value, int * array, int ind)
     }
   for(i = 1; i <= value; i++)
     {
+      //check if it's even
       if(i % 2 != 0)
 	{
+	  //it's odd so move on
 	  continue;
 	}
       array[ind] = i;
+      //go back to the other function
       partEvenOdd(value-i, array, ind+1);
     }
 }
@@ -337,16 +345,20 @@ int Prime(int n)
 {
   if(n <= 1)
     {
+      //1 and 0 aren't prime
       return 0;
     }
   int i;
+  //iterate through the square root of n checking for divisors
   for(i = 2; i*i <= n; i++)
     {
       if(n % i == 0)
 	{
+	  //return 0 as it isn't prime
 	  return 0;
 	}
     }
+  //return 1 because it is prime
   return 1;
 }
 void partPrime(int value, int * array, int ind)
@@ -358,8 +370,10 @@ void partPrime(int value, int * array, int ind)
     }
   for(i = 1; i <= value; i++)
     {
+      //check if number is prime
       if(Prime(i) == 0)
 	{
+	  //number is not prime, move on.
 	  continue;
 	}
       array[ind] = i;
