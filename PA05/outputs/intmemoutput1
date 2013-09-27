@@ -1,0 +1,77 @@
+==22260== Memcheck, a memory error detector
+==22260== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+==22260== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+==22260== Command: ./pa05 i inputs/intinput1 outputs/intoutput1
+==22260== Parent PID: 22251
+==22260== 
+--22260-- 
+--22260-- Valgrind options:
+--22260--    --tool=memcheck
+--22260--    --leak-check=full
+--22260--    --verbose
+--22260--    --log-file=outputs/intmemoutput1
+--22260-- Contents of /proc/version:
+--22260--   Linux version 2.6.32-358.18.1.el6.x86_64 (mockbuild@x86-003.build.bos.redhat.com) (gcc version 4.4.7 20120313 (Red Hat 4.4.7-3) (GCC) ) #1 SMP Fri Aug 2 17:04:38 EDT 2013
+--22260-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--22260-- Page sizes: currently 4096, max supported 4096
+--22260-- Valgrind library directory: /usr/lib64/valgrind
+--22260-- Reading syms from /home/shay/a/adunker/ECE264/solutions/ECE264/PA05/pa05
+--22260-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux
+--22260--    object doesn't have a dynamic symbol table
+--22260-- Reading syms from /lib64/ld-2.12.so
+--22260-- Scheduler: using generic scheduler lock implementation.
+--22260-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+==22260== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-22260-by-adunker-on-ecelinux40.ecn.purdue.edu
+==22260== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-22260-by-adunker-on-ecelinux40.ecn.purdue.edu
+==22260== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-22260-by-adunker-on-ecelinux40.ecn.purdue.edu
+==22260== 
+==22260== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==22260== don't want to do, unless you know exactly what you're doing,
+==22260== or are doing some strange experiment):
+==22260==   /usr/lib64/valgrind/../../bin/vgdb --pid=22260 ...command...
+==22260== 
+==22260== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==22260==   /path/to/gdb ./pa05
+==22260== and then give GDB the following command
+==22260==   target remote | /usr/lib64/valgrind/../../bin/vgdb --pid=22260
+==22260== --pid is optional if only one valgrind process is running
+==22260== 
+--22260-- REDIR: 0x3ece417520 (strlen) redirected to 0x38049551 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--22260-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so
+--22260-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so
+--22260-- REDIR: 0x3ece417390 (index) redirected to 0x4a07bf0 (index)
+--22260-- REDIR: 0x3ece417410 (strcmp) redirected to 0x4a08530 (strcmp)
+--22260-- Reading syms from /lib64/libc-2.12.so
+--22260-- REDIR: 0x3ece884ec0 (strcasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--22260-- REDIR: 0x3ece887180 (strncasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--22260-- REDIR: 0x3ece882e30 (__GI_strrchr) redirected to 0x4a07a70 (__GI_strrchr)
+--22260-- REDIR: 0x3ece87f8d0 (strcmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--22260-- REDIR: 0x3ece927ac0 (__strcmp_sse42) redirected to 0x4a08490 (strcmp)
+--22260-- REDIR: 0x3ece87a8e0 (malloc) redirected to 0x4a0696c (malloc)
+--22260-- REDIR: 0x3ece87b710 (free) redirected to 0x4a06369 (free)
+==22260== 
+==22260== HEAP SUMMARY:
+==22260==     in use at exit: 20 bytes in 1 blocks
+==22260==   total heap usage: 2 allocs, 1 frees, 588 bytes allocated
+==22260== 
+==22260== Searching for pointers to 1 not-freed blocks
+==22260== Checked 64,280 bytes
+==22260== 
+==22260== 20 bytes in 1 blocks are definitely lost in loss record 1 of 1
+==22260==    at 0x4A069EE: malloc (vg_replace_malloc.c:270)
+==22260==    by 0x400702: readInteger (answer05.c:75)
+==22260==    by 0x400869: main (pa05.c:20)
+==22260== 
+==22260== LEAK SUMMARY:
+==22260==    definitely lost: 20 bytes in 1 blocks
+==22260==    indirectly lost: 0 bytes in 0 blocks
+==22260==      possibly lost: 0 bytes in 0 blocks
+==22260==    still reachable: 0 bytes in 0 blocks
+==22260==         suppressed: 0 bytes in 0 blocks
+==22260== 
+==22260== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 6 from 6)
+--22260-- 
+--22260-- used_suppression:      4 U1004-ARM-_dl_relocate_object
+--22260-- used_suppression:      2 glibc-2.5.x-on-SUSE-10.2-(PPC)-2a
+==22260== 
+==22260== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 6 from 6)
