@@ -157,7 +157,7 @@ char * * readString(char * filename, int * numString)
   char a[MAXIMUM_LENGTH];
   //open file
   ifp = fopen(filename, "r");
-  //read file to determine number of Integers
+  //read file to determine number of strings
   while(fgets(a, MAXIMUM_LENGTH, ifp) != NULL)
     {
       *numString += 1;
@@ -165,12 +165,12 @@ char * * readString(char * filename, int * numString)
   //set the file pointer back to the beginning fo the file
   fseek(ifp, 0, SEEK_SET);
   //allocate the neccessary memory for the array
-  array = malloc(*numString * sizeof(char));
-
-  //read all the numbers and store them into an array
+  array = malloc((*numString) * sizeof(char*));
+  //read all the strings and store them into an array
   for(i = 0; i < *numString; i++)
     {
-      array[i] = malloc(MAXIMUM_LENGTH * sizeof(char));
+	  //allocate next dimension of the array
+      array[i] = malloc(MAXIMUM_LENGTH*sizeof(char));
       fgets(array[i], MAXIMUM_LENGTH, ifp);
     }
   //close the file
@@ -185,6 +185,7 @@ char * * readString(char * filename, int * numString)
 void printInteger(int * arrInteger, int numInteger)
 {
   int i;
+  //scroll through printing each integer on a new line
   for(i=0; i < numInteger; i++)
     {
       printf("%d\n", arrInteger[i]);
@@ -200,9 +201,10 @@ void printInteger(int * arrInteger, int numInteger)
 void printString(char * * arrString, int numString)
 {
   int i;
+  //scroll through printing each string
   for(i=0; i < numString; i++)
     {
-      printf("%s\n", arrString[i]);
+      printf("%s", arrString[i]);
     }
 }
 
@@ -212,6 +214,7 @@ void printString(char * * arrString, int numString)
  */
 void freeInteger(int * arrInteger, int numInteger)
 {
+  //free the single dimensional array
   free(arrInteger);
 }
 
@@ -224,10 +227,12 @@ void freeInteger(int * arrInteger, int numInteger)
 void freeString(char * * arrString, int numString)
 {
   int i;
+  //scroll through freeing each of the second dimensional arrays
   for(i=0; i < numString; i++)
     {
       free(arrString[i]);
     }
+  //free the main array
   free(arrString);
 }
 
@@ -251,12 +256,15 @@ void freeString(char * * arrString, int numString)
 
 int saveInteger(char * filename, int * arrInteger, int numInteger)
 {
+  //make file pointer and open file in write mode
   FILE * fout;
   fout = fopen(filename, "w");
+  //check that it worked
   if(fout == NULL)
     {
       return 0;
     }
+  //scroll through printing each integer to the file
   int i;
   for(i=0; i < numInteger; i++)
     {
@@ -285,6 +293,7 @@ int saveInteger(char * filename, int * arrInteger, int numInteger)
 
 int saveString(char * filename, char * * arrString, int numString)
 {
+  //make file pointer and open file in write mode
   FILE * fout;
   fout = fopen(filename, "w");
   if(fout == NULL)
@@ -292,11 +301,13 @@ int saveString(char * filename, char * * arrString, int numString)
       return 0;
     }
   int i;
+  //scroll through the strings printing each one out
   for(i=0; i < numString; i++)
     {
-      fprintf(fout, "%s\n", arrString[i]);
+      fprintf(fout, "%s", arrString[i]);
     }
   return 1;
+ 
 }
 
 /* ----------------------------------------------- */
@@ -325,6 +336,7 @@ int compint(const void * p1, const void *p2)
 
 void sortInteger(int * arrInteger, int numInteger)
 {
+  //call the q sort function
   qsort(arrInteger, numInteger, sizeof(int), compint);
 }
 
@@ -338,9 +350,18 @@ void sortInteger(int * arrInteger, int numInteger)
  * Hint: use strcmp in the comparison function
  *
  */
-
-void sortString(char * * arrString, int numString)
+int compchar(const void * p1, const void *p2)
 {
+  //get the values
+  char *c1 = *(char **) p1; 
+  char *c2 = *(char **) p2; 
+  //return the comparison
+  return strcmp(c1, c2);
+}
+void sortString(char ** arrString, int numString)
+{
+  //call the function
+  qsort(arrString, numString, sizeof(char*), compchar);
 }
 
 
