@@ -163,72 +163,143 @@
  */
 struct Image * loadImage(const char* filename)
 {
-  FILE *ifp;
-  file = fopen(filename, "r");
-  if(ifp == NULL)
+  FILE *fptr;
+  fptr = fopen(filename, "r");
+  if(fptr == NULL)
     {
       return NULL;
     }
-  int filesize = 0;
-  fseek(ifp, 0L, SEEK_END);
-  filesize = ftell(ifp);
-  if(filesize < 16)
+  struct ImageHeader * hdr2; // data is stored on heap, need to malloc/free
+  hdr2 = malloc(sizeof(struct ImageHeader));
+  int retval;
+  retval = fread(hdr2, sizeof(struct ImageHeader), 1, fptr);
+  if (retval != 1)
     {
+      free(hdr2);
       return NULL;
     }
-  fseek(ifp, 0L, SEEK_SET);
-  char header[16];
-  fread(header, 17, 1, ifp);
-  if( 
-  printf("%s\n", header);
-  fclose(ifp);
-  return NULL;
-}
+  if ((hdr2->magic_bits) != ECE264_IMAGE_MAGIC_BITS)
+    {
+      free(hdr2);
+      return NULL;
+    }
+  if (hdr2 -> width == 0)
+    {
+      free(hdr2);
+      return NULL;
+    }
+  if (hdr2 -> height == 0)
+    {
+      free(hdr2);
+      return NULL;
+    }
+  struct Image * img;
+  img = malloc(sizeof(struct Image));
+  if (img == NULL)
+    {
+      free(img);
+      free(hdr2);
+      return NULL;
+    }
+  img -> width = hdr2 -> width;
+  img -> height = hdr2 -> height;
+  img -> comment = malloc(sizeof(char) * hdr2 -> comment_len);
+  //check if malloc is successfull or not
+  if (img->comment == NULL)
+    {
+      free(img->comment);
+      free(img);
+      free(hdr2);
+      return NULL;
+    }
+  img -> data = malloc(sizeof(uint8_t) * hdr2 -> width * hdr2 -> height);
+  //check if malloc is successful or not
+  if (img->comment == NULL)
+    {
+      free(img->data);
+      free(img->comment);
+      free(img);
+      free(hdr2);
+      return NULL;
+    }
+  retval = fread(img -> comment, sizeof(char), hdr2 -> comment_len, fptr);
+  if (retval != hdr2->comment_len)
+    {
+      free(img->data);
+      free(img->comment);
+      free(img);
+      free(hdr2);
+      return NULL;
+    }
+	
+  retval = fread(img -> data, sizeof(uint8_t), (hdr2 -> width) * (hdr2 -> height), fptr);
+  if (retval != (hdr2->width * hdr2->height))
+    {
+      free(img->data);
+      free(img->comment);
+      free(img);
+      free(hdr2);
+      return NULL;
+    }
+    //check whether the file has anything left!!
+    //if the file has something left, something is wrong
+    //check if is end of file
+    //use ftell, EOF
+
+    //FREE EVERYTHING
+    fclose(fptr);
+    return img;
+	
+    /* in the free function
+       free in the reverse order of malloc
+       what is malloc first, free later
+    */
+    }
 
 
-/*
- * ===================================================================
- * Free memory for an image structure
- *
- * loadImage(...) (above) allocates memory for an image structure. 
- * This function must clean up any allocated resources. If image is 
- * NULL, then it does nothing. (There should be no error message.) If 
- * you do not write this function correctly, then valgrind will 
- * report an error. 
- */
-void freeImage(struct Image * image)
-{
+  /*
+   * ===================================================================
+   * Free memory for an image structure
+   *
+   * loadImage(...) (above) allocates memory for an image structure. 
+   * This function must clean up any allocated resources. If image is 
+   * NULL, then it does nothing. (There should be no error message.) If 
+   * you do not write this function correctly, then valgrind will 
+   * report an error. 
+   */
+  void freeImage(struct Image * image)
+  {
+	
+  }
 
-}
+  /*
+   * ===================================================================
+   * Performs "linear normalization" on the passed image
+   *
+   * Imagine that the intensity values in your input image are in the 
+   * range [50..180]. The image looks gray and washed out. You can 
+   * "normalize" the image, which means apply some mathematical filter
+   * that "stretches" the intensity values to give a more satisfying
+   * image. We're going to use "linear normalization" which is the 
+   * simplest normalization method. It works as follows:
+   *
+   * (1) Find the min and max intensity value of pixels in the image
+   * (2) Now scale each pixel so that its new intensity is:
+   *     
+   *        pixel[i] = (pixel[i] - min) * 255.0 / (max - min)
+   *
+   * That's it! For the above example the equation is:
+   *
+   *        pixel[i] = (pixel[i] - 50) * 255.0 / (180 - 50)
+   *
+   * To implement this, you need two for loops, one after the other. 
+   * The first for-loop completes step (1), and the second for-loop 
+   * to complete step (2). 
+   */
+  void linearNormalization(struct Image * image)
+  {
 
-/*
- * ===================================================================
- * Performs "linear normalization" on the passed image
- *
- * Imagine that the intensity values in your input image are in the 
- * range [50..180]. The image looks gray and washed out. You can 
- * "normalize" the image, which means apply some mathematical filter
- * that "stretches" the intensity values to give a more satisfying
- * image. We're going to use "linear normalization" which is the 
- * simplest normalization method. It works as follows:
- *
- * (1) Find the min and max intensity value of pixels in the image
- * (2) Now scale each pixel so that its new intensity is:
- *     
- *        pixel[i] = (pixel[i] - min) * 255.0 / (max - min)
- *
- * That's it! For the above example the equation is:
- *
- *        pixel[i] = (pixel[i] - 50) * 255.0 / (180 - 50)
- *
- * To implement this, you need two for loops, one after the other. 
- * The first for-loop completes step (1), and the second for-loop 
- * to complete step (2). 
- */
-void linearNormalization(struct Image * image)
-{
-
-}
+  }
 
 
 
