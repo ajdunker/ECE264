@@ -163,7 +163,7 @@
  */
 struct Image * loadImage(const char* filename)
 {
-  FILE *fptr;
+  FILE * fptr;
   fptr = fopen(filename, "r");
   if(fptr == NULL)
     {
@@ -176,21 +176,31 @@ struct Image * loadImage(const char* filename)
   if (retval != 1)
     {
       free(hdr2);
+      fclose(fptr);
       return NULL;
     }
   if ((hdr2->magic_bits) != ECE264_IMAGE_MAGIC_BITS)
     {
       free(hdr2);
+      fclose(fptr);
       return NULL;
     }
   if (hdr2 -> width == 0)
     {
       free(hdr2);
+      fclose(fptr);
       return NULL;
     }
   if (hdr2 -> height == 0)
     {
       free(hdr2);
+      fclose(fptr);
+      return NULL;
+    }
+  if (hdr2 -> comment_len == 0)
+    {
+      free(hdr2);
+      fclose(fptr);
       return NULL;
     }
   struct Image * img;
@@ -199,6 +209,7 @@ struct Image * loadImage(const char* filename)
     {
       free(img);
       free(hdr2);
+      fclose(fptr);
       return NULL;
     }
   img -> width = hdr2 -> width;
@@ -210,16 +221,18 @@ struct Image * loadImage(const char* filename)
       free(img->comment);
       free(img);
       free(hdr2);
+      fclose(fptr);
       return NULL;
     }
   img -> data = malloc(sizeof(uint8_t) * hdr2 -> width * hdr2 -> height);
   //check if malloc is successful or not
-  if (img->comment == NULL)
+  if (img->data == NULL)
     {
       free(img->data);
       free(img->comment);
       free(img);
       free(hdr2);
+      fclose(fptr);
       return NULL;
     }
   retval = fread(img -> comment, sizeof(char), hdr2 -> comment_len, fptr);
@@ -229,6 +242,18 @@ struct Image * loadImage(const char* filename)
       free(img->comment);
       free(img);
       free(hdr2);
+      fclose(fptr);
+      return NULL;
+    }
+
+  //check if comment has null byte
+  if(img->comment[hdr2->comment_len - 1] != '\0')
+    {
+      free(img->data);
+      free(img->comment);
+      free(img);
+      free(hdr2);
+      fclose(fptr);
       return NULL;
     }
 	
@@ -239,6 +264,17 @@ struct Image * loadImage(const char* filename)
       free(img->comment);
       free(img);
       free(hdr2);
+      fclose(fptr);
+      return NULL;
+    }
+  retval = fread(img -> data, sizeof(uint8_t), (hdr2 -> width) * (hdr2 -> height), fptr);
+  if (retval != 0)
+    {
+      free(img->data);
+      free(img->comment);
+      free(img);
+      free(hdr2);
+      fclose(fptr);
       return NULL;
     }
     //check whether the file has anything left!!
@@ -248,6 +284,7 @@ struct Image * loadImage(const char* filename)
 
     //FREE EVERYTHING
     fclose(fptr);
+    free(hdr2);
     return img;
 	
     /* in the free function
@@ -269,7 +306,13 @@ struct Image * loadImage(const char* filename)
    */
   void freeImage(struct Image * image)
   {
-	
+    if(image == NULL)
+      {
+	return;
+      }
+    free(image->data);
+    free(image->comment);
+    free(image);
   }
 
   /*
@@ -298,7 +341,25 @@ struct Image * loadImage(const char* filename)
    */
   void linearNormalization(struct Image * image)
   {
-
+    int i;
+    uint8_t min, max;
+    min = image->data[0];
+    max = image->data[0];
+    for(i = 0; i < (image->height * image->width); i++)
+      {
+	if(min > image->data[i])
+	  {
+	    min  = image->data[i];
+	  }
+	if(max < image->data[i])
+	  {
+	    max = image->data[i];
+	  }
+      }
+    for(i = 0; i < (image->height * image->width); i++)
+      {
+	image->data[i] = (image->data[i] - min) * 255.0 / (max-min);
+      }
   }
 
 

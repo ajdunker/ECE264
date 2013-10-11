@@ -1,0 +1,1 @@
+obj/pa06.o: pa06.c pa06.h \
