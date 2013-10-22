@@ -35,15 +35,9 @@ void List_print(FILE * out, Node * head)
  */
 void List_destroy(Node * head)
 {
-  Node* current = head;
-  Node* next;
-  while (current != NULL)
-    {
-      next = current->next;
-      free(current);
-      current = next;
-    }
-  head = NULL;
+  if(head != NULL)
+      List_destroy(head -> next);
+  free(head);
 }
 
 /**
@@ -62,7 +56,8 @@ void List_destroy(Node * head)
 Node * List_create(int value, int index)
 {
   Node * ln = malloc(sizeof(Node));
-  ln -> next == NULL;
+  ln -> next = NULL;
+  ln -> index = index;
   ln -> value = value;
   return ln;
 }
@@ -95,8 +90,14 @@ Node * List_create(int value, int index)
  */
 Node * List_build(int * value, int * index, int length)
 {
-  
-  return NULL;
+  Node * ln;
+  ln = List_create(value[0], index[0]);
+  int i;
+  for(i = 1; i < length; i++)
+    {
+      List_insert_ascend(ln, value[i], index[i]); 
+    }
+  return ln;
 }
 
 
@@ -121,7 +122,23 @@ Node * List_build(int * value, int * index, int length)
  */
 Node * List_insert_ascend(Node * head, int value, int index)
 {
-    return NULL;
+  Node * temp;
+  temp = head;
+  while(temp !=NULL)
+    {
+      if(temp->index <= index && (temp->next == NULL || temp->next->index > index))
+	{
+	  Node * temp1 = malloc(sizeof(Node));
+	  temp1->value = value;
+	  temp1->index = index;
+	  temp1->next = temp->next;
+	  temp->next = temp1;
+	  List_destroy(temp1);
+	  return temp;
+	}
+      temp=temp->next;
+    }
+  return NULL;
 }
 
 
@@ -137,7 +154,32 @@ Node * List_insert_ascend(Node * head, int value, int index)
  */
 Node * List_delete(Node * head, int index)
 {
-    return NULL;
+  if(head == NULL)
+    return head;
+  if(head -> index == index)
+    {
+      Node * ret = head -> next;
+      free(head);
+      return ret;
+    }
+  return List_delete(head -> next, index);
+
+  /*//create and allocate a temporary node
+  Node * temp1 = malloc(sizeof(Node));
+  temp1 = head;//transfer the address of head to temp1
+  
+  Node * temp2 = malloc(sizeof(Node));
+  temp2 = temp1;
+
+  int i;
+  for(i = 1; i < index; i++)
+    {
+      temp2 = temp1;//store the previous node
+      temp1 = temp1->next; //store the current node
+    }
+  temp2->next = temp1->next;
+  free(temp1);
+  return head;*/
 }
 
 /**
@@ -159,7 +201,13 @@ Node * List_delete(Node * head, int index)
  */
 Node * List_copy(Node * head)
 {
-    return NULL;
+  /*if(head == NULL) return NULL;
+  Node * copy = malloc(sizeof(NULL));
+  copy->value = head->value;
+  copy->index = head->index;
+  copy->next = clone(head->next);
+  return copy;*/
+  return NULL;
 }
 
 
