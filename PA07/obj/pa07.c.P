@@ -1,0 +1,1 @@
+obj/pa07.o: pa07.c pa07.h \
