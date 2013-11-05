@@ -73,6 +73,35 @@ SparseNode * SparseArray_insert ( SparseNode * array, int index, int value )
   return array;
 }
 
+SparseNode * SparseArray_MergeInsert ( SparseNode * array, int index, int value )
+{
+  if(value == 0)
+    {
+      return array;
+    }
+  if(array == NULL)
+    {
+      return SparseNode_create(index, value);
+    }
+  if((array -> index) == index)
+    {
+      array -> value += value;
+      if(array -> value == 0)
+	{
+	  array = SparseArray_remove(array, array -> index);
+	}
+      return array;
+    }
+  if((array -> index) > index) //go to the left side
+    {
+      array -> left = SparseArray_MergeInsert(array -> left, index, value);
+    }
+  else
+    {
+      array -> right = SparseArray_MergeInsert(array -> right, index, value);
+    }
+  return array;
+}
 /* Build a sparse array tree from given indices and values with specific length.
  *
  * Arguments:
@@ -336,18 +365,28 @@ SparseNode * SparseArray_copy(SparseNode * array)
  * 
  * Hint: you may write new functions
  */
-SparseNode* SparseArray_InsertMerge(SparseNode * array, int index, int value)
-{
-  return NULL;
-}
 SparseNode * MergeHelp(SparseNode * C_array_1, SparseNode * array_2)
 {
   if(array_2 == NULL)
     {
       return NULL;
     }
-  
+  MergeHelp(C_array_1, array_2 -> left);
+  MergeHelp(C_array_1, array_2 -> right);
+  SparseArray_MergeInsert (C_array_1, array_2 -> index, array_2 -> value);
+  return C_array_1;
+}
 
+SparseNode * checkArray(SparseNode * array)
+{
+  if(array -> value == 0)
+    {
+      return NULL;
+    }
+  else
+    {
+      return array;
+    }
 }
 
 SparseNode * SparseArray_merge(SparseNode * array_1, SparseNode * array_2)
@@ -362,6 +401,6 @@ SparseNode * SparseArray_merge(SparseNode * array_1, SparseNode * array_2)
     }
   SparseNode * C_array_1 = SparseArray_copy(array_1);
   C_array_1 = MergeHelp(C_array_1, array_2);
-  return C_array_1;
+  return checkArray(C_array_1);
 }
 
