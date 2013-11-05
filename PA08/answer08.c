@@ -168,7 +168,7 @@ int SparseArray_getMax ( SparseNode * array )
 {
   if(array == 0)
     {
-      return NULL;
+      return 0;
     }  
   while(array -> right != NULL)
     {
@@ -336,22 +336,27 @@ SparseNode * SparseArray_copy(SparseNode * array)
  * 
  * Hint: you may write new functions
  */
-
+SparseNode* SparseArray_InsertMerge(SparseNode * array, int index, int value)
+{
+  return NULL;
+}
 SparseNode * MergeHelp(SparseNode * C_array_1, SparseNode * array_2)
 {
-  MergeHelp(C_array_1, array_2 -> left);
-  MergeHelp(C_array_1, array_2 -> right);
-  C_array_1 = SparseArray_insert(C_array_1, array_2 -> index, array_2 -> value);
-  return C_array_1;
+  if(array_2 == NULL)
+    {
+      return NULL;
+    }
+  
+
 }
 
 SparseNode * SparseArray_merge(SparseNode * array_1, SparseNode * array_2)
 {
-  if(array_1 = NULL)
+  if(array_1 == NULL)
     {
       return array_2;
     }
-  if(array_2 = NULL)
+  if(array_2 == NULL)
     {
       return array_1;
     }
