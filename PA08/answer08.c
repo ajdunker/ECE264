@@ -55,6 +55,7 @@ SparseNode * SparseArray_insert ( SparseNode * array, int index, int value )
     }
   if(array == NULL)
     {
+      //create binary tree
       return SparseNode_create(index, value);
     }
   if((array -> index) == index)
@@ -68,6 +69,7 @@ SparseNode * SparseArray_insert ( SparseNode * array, int index, int value )
     }
   else
     {
+      //go to teh right side
       array -> right = SparseArray_insert(array -> right, index, value);
     }
   return array;
@@ -81,6 +83,7 @@ SparseNode * SparseArray_MergeInsert ( SparseNode * array, int index, int value 
     }
   if(array == NULL)
     {
+      //create binary tere
       return SparseNode_create(index, value);
     }
   if((array -> index) == index)
@@ -88,6 +91,7 @@ SparseNode * SparseArray_MergeInsert ( SparseNode * array, int index, int value 
       array -> value += value;
       if(array -> value == 0)
 	{
+	  //remove the value if it's zero
 	  array = SparseArray_remove(array, array -> index);
 	}
       return array;
@@ -98,6 +102,7 @@ SparseNode * SparseArray_MergeInsert ( SparseNode * array, int index, int value 
     }
   else
     {
+      //go to the right side
       array -> right = SparseArray_MergeInsert(array -> right, index, value);
     }
   return array;
@@ -176,6 +181,7 @@ int SparseArray_getMin ( SparseNode * array )
     {
       return 0;
     }
+  //go directly down the left side
   while(array -> left != NULL)
     {
       array = array -> left;
@@ -199,6 +205,7 @@ int SparseArray_getMax ( SparseNode * array )
     {
       return 0;
     }  
+  //go directly down right side
   while(array -> right != NULL)
     {
       array = array -> right;
@@ -371,8 +378,9 @@ SparseNode * MergeHelp(SparseNode * C_array_1, SparseNode * array_2)
     {
       return NULL;
     }
-  MergeHelp(C_array_1, array_2 -> left);
-  MergeHelp(C_array_1, array_2 -> right);
+  MergeHelp(C_array_1, array_2 -> left); //merge left side
+  MergeHelp(C_array_1, array_2 -> right); //merge right side
+  //insert the values through the specific merge insert function
   SparseArray_MergeInsert (C_array_1, array_2 -> index, array_2 -> value);
   return C_array_1;
 }
@@ -381,10 +389,12 @@ SparseNode * checkArray(SparseNode * array)
 {
   if(array -> value == 0)
     {
+      //if array is nothing return null
       return NULL;
     }
   else
     {
+      //array checks out
       return array;
     }
 }
