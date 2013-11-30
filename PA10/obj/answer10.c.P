@@ -1,0 +1,1 @@
+obj/answer10.o: answer10.c pa10.h tree.h tree.c \
