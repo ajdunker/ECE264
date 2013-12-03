@@ -1,6 +1,4 @@
-
 #include "pa11.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -35,8 +33,47 @@ int main(int argc, char * * argv)
 }
 
  */
-
-
+int main(int argc, char * * argv)
+{
+  char * stage = argv[1];
+  char * state = argv[2];
+  char * movelist = argv[3];
+  printf("Stage: %c\n", stage[0]);
+  printf("State:\n");
+  printcharlist(state);
+  printf("Move List:\n");
+  printcharlist(movelist);
+  if(isValidMoveList(movelist) == TRUE)
+    {
+      printf("Move list is valid.\n");
+    }
+  else
+    {
+      printf("Move list is not valid.\n");
+    }
+  if(isValidState(state) == TRUE)
+    {
+      printf("State is valid.\n");
+    }
+  else
+    {
+      printf("State is not valid.\n");
+    }
+  printPuzzle(state);
+  printf("Processing moves.\n");
+  processMoveList(state, movelist);
+  printPuzzle(state);
+  return 0;
+}
+void printcharlist(char * list)
+{
+  int i = 0;
+  for(i = 0; i < strlen(list); i++)
+    {
+      printf("%c", list[i]);
+    }
+  printf("\n");
+}
 /** 
  * Return TRUE iff 'state' is a valid puzzle state.
  *
@@ -50,9 +87,34 @@ int main(int argc, char * * argv)
  * (2) Sort the characters in your buffer. (Use qsort.)
  * (3) Check that buffer is equal to "-123456789ABCDEF"
  */
+
+int compare_chars (const void *a_, const void *b_)
+{
+  const char *a = (const char *) a_;
+  const char *b = (const char *) b_;
+  return *a < *b ? -1 : *a > *b;
+}
 int isValidState(const char * state)
 {
-    return 0;
+  if(strlen(state) != 16)
+    {
+      return FALSE;
+    }
+  char * buffer = malloc(sizeof(char) * 16);
+  memcpy(buffer, state, 16);
+  qsort(buffer, 16, 1, compare_chars);
+  printcharlist(buffer);
+  if(strcmp(buffer,"-123456789ABCDEF"))
+    {
+      free(buffer);
+      return FALSE;
+    }
+  else
+    {
+      free(buffer);
+      return TRUE;
+    }
+  return TRUE;
 }
 
 /** 
@@ -63,7 +125,18 @@ int isValidState(const char * state)
  */ 
 int isValidMoveList(const char * moves)
 {
-    return 0;
+  int i;
+  for(i = 0; i < strlen(moves); i++)
+    {
+      if(moves[i] == 'R' || 'L' || 'U' || 'D')
+	{
+	}
+      else
+	{
+	  return FALSE;
+	}
+    }
+  return TRUE;
 }
 
 /**
@@ -106,9 +179,80 @@ void printPuzzle(const char * state)
  *     be 'new_row * SIDELENGTH + new_col'
  * (5) Swap the characters at 'position' and 'target_position'
  */
+void swap(char* s, int left, int right)
+ {
+   char tmp = s[left];
+   s[left] = s[right];
+   s[right] = tmp;
+}
 int move(char * state, char m)
 {    
-    return TRUE;
+  int ind;
+  ind = strchr(state, '-') - state;
+  int row = 0;
+  int col = 0;
+  int nrow = 0;
+  int ncol = 0;
+  int target = 0;
+  row = ind / SIDELENGTH;
+  col = ind % SIDELENGTH;
+  if(m == 'U')
+    {
+      nrow = row - 1;
+      if(nrow >= 0 && nrow < SIDELENGTH)
+	{
+	  target = (nrow * SIDELENGTH) + (col);
+	  swap(state, target, ind);
+	  return TRUE;
+	}
+      else
+	{
+	  return FALSE;
+	}
+    }
+  else if(m == 'L')
+    {
+      ncol = col - 1;
+      if(ncol >= 0 && ncol < SIDELENGTH)
+	{
+	  target = (row * SIDELENGTH) + (ncol);
+	  swap(state, target, ind);
+	  return TRUE;
+	}
+      else
+	{
+	  return FALSE;
+	}
+    }
+  else if(m == 'R')
+    {
+      ncol = col + 1;
+      if(ncol >= 0 && ncol < SIDELENGTH)
+	{
+	  target = (row * SIDELENGTH) + (ncol);
+	  swap(state, target, ind);
+	  return TRUE;
+	}
+      else
+	{
+	  return FALSE;
+	}
+    }
+  else
+    {
+      nrow = row + 1;
+      if(nrow >= 0 && nrow < SIDELENGTH)
+	{
+	  target = (nrow * SIDELENGTH) + (col);
+	  swap(state, target, ind);
+	  return TRUE;
+	}
+      else
+	{
+	  return FALSE;
+	}
+    }
+  return FALSE;
 }
 
 /**
@@ -126,7 +270,16 @@ int move(char * state, char m)
  */
 void processMoveList(char * state, const char * movelist)
 {
-
+  int i;
+  for(i = 0; i < strlen(movelist); i++)
+    {
+      if(!move(state, movelist[i]))
+	{
+	  printf("I\n");
+	  return;
+	}
+    }
+  printcharlist(state);
 }
 
 /**
@@ -163,7 +316,7 @@ MoveTree * MoveTree_insert(MoveTree * node, const char * state,
  */
 MoveTree * MoveTree_find(MoveTree * node, const char * state)
 {
-  
+  return NULL;
 }
 
 /**
