@@ -13,7 +13,7 @@
 // To help debug
 void printPuzzle(const char * state);
 // More debug
-void printcharlist(char * movelist);
+void printlist(char * movelist);
 
 // --------------------------------------------------- Stage 0
 // To check the validity of main's arguments

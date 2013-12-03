@@ -39,9 +39,9 @@ int main(int argc, char * * argv)
   char * state = argv[2];
   char * movelist = argv[3];
   printf("Stage: %c\n", stage[0]);
-  printf("State: ");
+  printf("State:\n");
   printcharlist(state);
-  printf("Move List: ");
+  printf("Move List:\n");
   printcharlist(movelist);
   if(isValidMoveList(movelist) == TRUE)
     {
@@ -59,10 +59,6 @@ int main(int argc, char * * argv)
     {
       printf("State is not valid.\n");
     }
-  printPuzzle(state);
-  printf("Processing moves.\n");
-  processMoveList(state, movelist);
-  printPuzzle(state);
   return 0;
 }
 void printcharlist(char * list)
@@ -88,12 +84,6 @@ void printcharlist(char * list)
  * (3) Check that buffer is equal to "-123456789ABCDEF"
  */
 
-int compare_chars (const void *a_, const void *b_)
-{
-  const char *a = (const char *) a_;
-  const char *b = (const char *) b_;
-  return *a < *b ? -1 : *a > *b;
-}
 int isValidState(const char * state)
 {
   if(strlen(state) != 16)
@@ -102,16 +92,16 @@ int isValidState(const char * state)
     }
   char * buffer = malloc(sizeof(char) * 16);
   memcpy(buffer, state, 16);
-  qsort(buffer, 16, 1, compare_chars);
+  printf("Test Debug\n");
   if(strcmp(buffer,"-123456789ABCDEF"))
     {
       free(buffer);
-      return FALSE;
+      return TRUE;
     }
   else
     {
       free(buffer);
-      return TRUE;
+      return FALSE;
     }
   return TRUE;
 }
@@ -178,80 +168,9 @@ void printPuzzle(const char * state)
  *     be 'new_row * SIDELENGTH + new_col'
  * (5) Swap the characters at 'position' and 'target_position'
  */
-void swap(char* s, int left, int right)
- {
-   char tmp = s[left];
-   s[left] = s[right];
-   s[right] = tmp;
-}
 int move(char * state, char m)
 {    
-  int ind;
-  ind = strchr(state, '-') - state;
-  int row = 0;
-  int col = 0;
-  int nrow = 0;
-  int ncol = 0;
-  int target = 0;
-  row = ind / SIDELENGTH;
-  col = ind % SIDELENGTH;
-  if(m == 'U')
-    {
-      nrow = row - 1;
-      if(nrow >= 0 && nrow < SIDELENGTH)
-	{
-	  target = (nrow * SIDELENGTH) + (col);
-	  swap(state, target, ind);
-	  return TRUE;
-	}
-      else
-	{
-	  return FALSE;
-	}
-    }
-  else if(m == 'L')
-    {
-      ncol = col - 1;
-      if(ncol >= 0 && ncol < SIDELENGTH)
-	{
-	  target = (row * SIDELENGTH) + (ncol);
-	  swap(state, target, ind);
-	  return TRUE;
-	}
-      else
-	{
-	  return FALSE;
-	}
-    }
-  else if(m == 'R')
-    {
-      ncol = col + 1;
-      if(ncol >= 0 && ncol < SIDELENGTH)
-	{
-	  target = (row * SIDELENGTH) + (ncol);
-	  swap(state, target, ind);
-	  return TRUE;
-	}
-      else
-	{
-	  return FALSE;
-	}
-    }
-  else
-    {
-      nrow = row + 1;
-      if(nrow >= 0 && nrow < SIDELENGTH)
-	{
-	  target = (nrow * SIDELENGTH) + (col);
-	  swap(state, target, ind);
-	  return TRUE;
-	}
-      else
-	{
-	  return FALSE;
-	}
-    }
-  return FALSE;
+    return TRUE;
 }
 
 /**
@@ -269,16 +188,7 @@ int move(char * state, char m)
  */
 void processMoveList(char * state, const char * movelist)
 {
-  int i;
-  for(i = 0; i < strlen(movelist); i++)
-    {
-      if(!move(state, movelist[i]))
-	{
-	  printf("I\n");
-	  return;
-	}
-    }
-  printcharlist(state);
+
 }
 
 /**
@@ -286,13 +196,7 @@ void processMoveList(char * state, const char * movelist)
  */
 MoveTree * MoveTree_create(const char * state, const char * moves)
 {
-  MoveTree * Tree;
-  Tree = malloc(sizeof(MoveTree));
-  memcpy(Tree -> state, state, strlen(state));
-  memcpy(Tree -> moves, moves, strlen(moves));
-  Tree -> left = NULL;
-  Tree -> right = NULL;
-  return Tree;
+    return NULL;
 }
 
 /**
@@ -300,11 +204,7 @@ MoveTree * MoveTree_create(const char * state, const char * moves)
  */
 void MoveTree_destroy(MoveTree * node)
 {
-  if(node == NULL)
-    return;
-  MoveTree_destroy(node -> left);
-  MoveTree_destroy(node -> right);
-  free(node);
+    
 }
 
 /**
@@ -316,24 +216,7 @@ void MoveTree_destroy(MoveTree * node)
 MoveTree * MoveTree_insert(MoveTree * node, const char * state,
 			   const char * moves)
 {
-  if(node == NULL)
-    {
-      MoveTree_create(state, moves);
-    }
-  else if(node -> state == state)
-    {
-      return node;
-    }
-  else if(node -> state > state)//go to the left side
-    {
-      node -> left = MoveTree_insert(state, moves);
-    }
-  else
-    {
-      node -> right = MoveTree_insert(state,moves);
-    }
-  
-  return node;
+    return NULL;
 }
 
 /**
