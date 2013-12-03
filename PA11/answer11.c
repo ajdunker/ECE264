@@ -39,9 +39,9 @@ int main(int argc, char * * argv)
   char * state = argv[2];
   char * movelist = argv[3];
   printf("Stage: %c\n", stage[0]);
-  printf("State:\n");
+  printf("State: ");
   printcharlist(state);
-  printf("Move List:\n");
+  printf("Move List: ");
   printcharlist(movelist);
   if(isValidMoveList(movelist) == TRUE)
     {
@@ -103,7 +103,6 @@ int isValidState(const char * state)
   char * buffer = malloc(sizeof(char) * 16);
   memcpy(buffer, state, 16);
   qsort(buffer, 16, 1, compare_chars);
-  printcharlist(buffer);
   if(strcmp(buffer,"-123456789ABCDEF"))
     {
       free(buffer);
@@ -287,7 +286,13 @@ void processMoveList(char * state, const char * movelist)
  */
 MoveTree * MoveTree_create(const char * state, const char * moves)
 {
-    return NULL;
+  MoveTree * Tree;
+  Tree = malloc(sizeof(MoveTree));
+  memcpy(Tree -> state, state, strlen(state));
+  memcpy(Tree -> moves, moves, strlen(moves));
+  Tree -> left = NULL;
+  Tree -> right = NULL;
+  return Tree;
 }
 
 /**
@@ -295,7 +300,11 @@ MoveTree * MoveTree_create(const char * state, const char * moves)
  */
 void MoveTree_destroy(MoveTree * node)
 {
-    
+  if(node == NULL)
+    return;
+  MoveTree_destroy(node -> left);
+  MoveTree_destroy(node -> right);
+  free(node);
 }
 
 /**
@@ -307,7 +316,8 @@ void MoveTree_destroy(MoveTree * node)
 MoveTree * MoveTree_insert(MoveTree * node, const char * state,
 			   const char * moves)
 {
-    return NULL;
+  
+  return NULL;
 }
 
 /**
