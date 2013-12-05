@@ -326,11 +326,11 @@ MoveTree * MoveTree_insert(MoveTree * node, const char * state,
     }
   else if(node -> state > state)//go to the left side
     {
-      node -> left = MoveTree_insert(state, moves);
+      node -> left = MoveTree_insert(node, state, moves);
     }
   else
     {
-      node -> right = MoveTree_insert(state,moves);
+      node -> right = MoveTree_insert(node, state,moves);
     }
   
   return node;
@@ -428,14 +428,16 @@ void generateAllHelper(MoveTree * root, // Root of the tree
     {
       return;
     }
-  int i = 0;
+  //int i = 0;
   
   
 }
 
 MoveTree * generateAll(char * state, int n_moves)
 { 
-    return NULL;
+  //char * movelistbuff = malloc(sizeof(char) * n_moves);
+  
+  return NULL;
 }
 
 /**
