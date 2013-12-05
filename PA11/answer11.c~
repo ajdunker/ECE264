@@ -39,9 +39,9 @@ int main(int argc, char * * argv)
   char * state = argv[2];
   char * movelist = argv[3];
   printf("Stage: %c\n", stage[0]);
-  printf("State:\n");
+  printf("State: ");
   printcharlist(state);
-  printf("Move List:\n");
+  printf("Move List: ");
   printcharlist(movelist);
   if(isValidMoveList(movelist) == TRUE)
     {
@@ -59,6 +59,10 @@ int main(int argc, char * * argv)
     {
       printf("State is not valid.\n");
     }
+  printPuzzle(state);
+  printf("Processing moves.\n");
+  processMoveList(state, movelist);
+  printPuzzle(state);
   return 0;
 }
 void printcharlist(char * list)
@@ -84,6 +88,12 @@ void printcharlist(char * list)
  * (3) Check that buffer is equal to "-123456789ABCDEF"
  */
 
+int compare_chars (const void *a_, const void *b_)
+{
+  const char *a = (const char *) a_;
+  const char *b = (const char *) b_;
+  return *a < *b ? -1 : *a > *b;
+}
 int isValidState(const char * state)
 {
   if(strlen(state) != 16)
@@ -92,16 +102,16 @@ int isValidState(const char * state)
     }
   char * buffer = malloc(sizeof(char) * 16);
   memcpy(buffer, state, 16);
-  printf("Test Debug\n");
+  qsort(buffer, 16, 1, compare_chars);
   if(strcmp(buffer,"-123456789ABCDEF"))
     {
       free(buffer);
-      return TRUE;
+      return FALSE;
     }
   else
     {
       free(buffer);
-      return FALSE;
+      return TRUE;
     }
   return TRUE;
 }
@@ -168,9 +178,80 @@ void printPuzzle(const char * state)
  *     be 'new_row * SIDELENGTH + new_col'
  * (5) Swap the characters at 'position' and 'target_position'
  */
+void swap(char* s, int left, int right)
+ {
+   char tmp = s[left];
+   s[left] = s[right];
+   s[right] = tmp;
+}
 int move(char * state, char m)
 {    
-    return TRUE;
+  int ind;
+  ind = strchr(state, '-') - state;
+  int row = 0;
+  int col = 0;
+  int nrow = 0;
+  int ncol = 0;
+  int target = 0;
+  row = ind / SIDELENGTH;
+  col = ind % SIDELENGTH;
+  if(m == 'U')
+    {
+      nrow = row - 1;
+      if(nrow >= 0 && nrow < SIDELENGTH)
+	{
+	  target = (nrow * SIDELENGTH) + (col);
+	  swap(state, target, ind);
+	  return TRUE;
+	}
+      else
+	{
+	  return FALSE;
+	}
+    }
+  else if(m == 'L')
+    {
+      ncol = col - 1;
+      if(ncol >= 0 && ncol < SIDELENGTH)
+	{
+	  target = (row * SIDELENGTH) + (ncol);
+	  swap(state, target, ind);
+	  return TRUE;
+	}
+      else
+	{
+	  return FALSE;
+	}
+    }
+  else if(m == 'R')
+    {
+      ncol = col + 1;
+      if(ncol >= 0 && ncol < SIDELENGTH)
+	{
+	  target = (row * SIDELENGTH) + (ncol);
+	  swap(state, target, ind);
+	  return TRUE;
+	}
+      else
+	{
+	  return FALSE;
+	}
+    }
+  else
+    {
+      nrow = row + 1;
+      if(nrow >= 0 && nrow < SIDELENGTH)
+	{
+	  target = (nrow * SIDELENGTH) + (col);
+	  swap(state, target, ind);
+	  return TRUE;
+	}
+      else
+	{
+	  return FALSE;
+	}
+    }
+  return FALSE;
 }
 
 /**
@@ -188,7 +269,16 @@ int move(char * state, char m)
  */
 void processMoveList(char * state, const char * movelist)
 {
-
+  int i;
+  for(i = 0; i < strlen(movelist); i++)
+    {
+      if(!move(state, movelist[i]))
+	{
+	  printf("I\n");
+	  return;
+	}
+    }
+  printcharlist(state);
 }
 
 /**
@@ -196,7 +286,13 @@ void processMoveList(char * state, const char * movelist)
  */
 MoveTree * MoveTree_create(const char * state, const char * moves)
 {
-    return NULL;
+  MoveTree * Tree;
+  Tree = malloc(sizeof(MoveTree));
+  memcpy(Tree -> state, state, strlen(state));
+  memcpy(Tree -> moves, moves, strlen(moves));
+  Tree -> left = NULL;
+  Tree -> right = NULL;
+  return Tree;
 }
 
 /**
@@ -204,7 +300,11 @@ MoveTree * MoveTree_create(const char * state, const char * moves)
  */
 void MoveTree_destroy(MoveTree * node)
 {
-    
+  if(node == NULL)
+    return;
+  MoveTree_destroy(node -> left);
+  MoveTree_destroy(node -> right);
+  free(node);
 }
 
 /**
@@ -216,7 +316,24 @@ void MoveTree_destroy(MoveTree * node)
 MoveTree * MoveTree_insert(MoveTree * node, const char * state,
 			   const char * moves)
 {
-    return NULL;
+  if(node == NULL)
+    {
+      MoveTree_create(state, moves);
+    }
+  else if(node -> state == state)
+    {
+      return node;
+    }
+  else if(node -> state > state)//go to the left side
+    {
+      node -> left = MoveTree_insert(node, state, moves);
+    }
+  else
+    {
+      node -> right = MoveTree_insert(node, state,moves);
+    }
+  
+  return node;
 }
 
 /**
@@ -225,7 +342,19 @@ MoveTree * MoveTree_insert(MoveTree * node, const char * state,
  */
 MoveTree * MoveTree_find(MoveTree * node, const char * state)
 {
-  return NULL;
+  if(node == NULL)
+    {
+      return NULL;
+    }
+  if(node -> state == state)
+    {
+      return node;
+    }
+  if(strcmp(node -> state, state) > 0)
+    {
+      return MoveTree_find(node -> left, state);
+    }
+  return MoveTree_find(node -> right, state);
 }
 
 /**
@@ -289,9 +418,26 @@ void MoveTree_print(MoveTree * node)
  * This is the most complex function to write... make sure you break
  * it down, and TEST EACH PART.
  */
+void generateAllHelper(MoveTree * root, // Root of the tree
+		       int n_moves,        // maximum length of a movelist
+		       const char * state, // the current state of the puzzle
+		       char * movelist,    // the current movelist
+		       int ind)            // the next index to write in movelist
+{
+  if(ind == n_moves)
+    {
+      return;
+    }
+  //int i = 0;
+  
+  
+}
+
 MoveTree * generateAll(char * state, int n_moves)
 { 
-    return NULL;
+  //char * movelistbuff = malloc(sizeof(char) * n_moves);
+  
+  return NULL;
 }
 
 /**

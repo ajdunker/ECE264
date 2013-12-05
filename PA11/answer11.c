@@ -322,6 +322,7 @@ MoveTree * MoveTree_insert(MoveTree * node, const char * state,
     }
   else if(node -> state == state)
     {
+	memcpy(node -> moves, moves, strlen(moves));
       return node;
     }
   else if(node -> state > state)//go to the left side
@@ -426,7 +427,8 @@ void generateAllHelper(MoveTree * root, // Root of the tree
 {
   if(ind == n_moves)
     {
-      return;
+      	//generate n moves
+	//->create a new state, return
     }
   //int i = 0;
   
