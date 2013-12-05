@@ -342,7 +342,19 @@ MoveTree * MoveTree_insert(MoveTree * node, const char * state,
  */
 MoveTree * MoveTree_find(MoveTree * node, const char * state)
 {
-  return NULL;
+  if(node == NULL)
+    {
+      return NULL;
+    }
+  if(node -> state == state)
+    {
+      return node;
+    }
+  if(strcmp(node -> state, state) > 0)
+    {
+      return MoveTree_find(node -> left, state);
+    }
+  return MoveTree_find(node -> right, state);
 }
 
 /**
@@ -406,6 +418,21 @@ void MoveTree_print(MoveTree * node)
  * This is the most complex function to write... make sure you break
  * it down, and TEST EACH PART.
  */
+void generateAllHelper(MoveTree * root, // Root of the tree
+		       int n_moves,        // maximum length of a movelist
+		       const char * state, // the current state of the puzzle
+		       char * movelist,    // the current movelist
+		       int ind)            // the next index to write in movelist
+{
+  if(ind == n_moves)
+    {
+      return;
+    }
+  int i = 0;
+  
+  
+}
+
 MoveTree * generateAll(char * state, int n_moves)
 { 
     return NULL;
