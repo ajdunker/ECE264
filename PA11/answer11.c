@@ -33,7 +33,7 @@ int main(int argc, char * * argv)
 }
 
  */
-/*
+			    /*
 int main(int argc, char * * argv)
 {
   printf("test\n");
@@ -43,11 +43,12 @@ int main(int argc, char * * argv)
   printf("testing\n");
   MoveTree * tr = NULL;
   tr = MoveTree_create(state, movelist);
+  MoveTree_insert(tr, "12-456389A7BDEFC", "UUU");
   MoveTree_print(tr);
   MoveTree_destroy(tr);
   return 0;
-  }
-*/
+}
+			    */
 
 void printcharlist(char * list)
 {
@@ -431,8 +432,8 @@ void generateAllHelper(MoveTree * root, // Root of the tree
 	    {
 	      movelist[ind] = 'U';
 	      movelist[ind + 1] = '\0';
-	      MoveTree_insert(root, dupstate, movelist); 
-	      generateAllHelper(root,  n_moves, dupstate, movelist, ind + 1);
+	      MoveTree_insert(root, dupstate, movelist);
+	      generateAllHelper(root, n_moves, dupstate, movelist, ind + 1);
 	      free(dupstate);
 	    }
 	  else
@@ -440,7 +441,7 @@ void generateAllHelper(MoveTree * root, // Root of the tree
 	      free(dupstate);
 	    }
 	}
-      else if(dir == 1)
+      if(dir == 1)
 	{
 	  memcpy(dupstate, state, 16);
 	  if(!move(dupstate, 'L'))
@@ -456,7 +457,7 @@ void generateAllHelper(MoveTree * root, // Root of the tree
 	      free(dupstate);
 	    }  
 	}
-      else if(dir == 2)
+      if(dir == 2)
 	{
 	  memcpy(dupstate, state, 16);
 	  if(!move(dupstate, 'D'))
@@ -494,6 +495,7 @@ void generateAllHelper(MoveTree * root, // Root of the tree
 MoveTree * generateAll(char * state, int n_moves)
 { 
   char * movelistbuff = malloc(sizeof(char) * (n_moves+1));
+  movelistbuff = "";
   MoveTree * Tr = NULL;
   Tr = MoveTree_create(state, movelistbuff);
   generateAllHelper(Tr, n_moves, state, movelistbuff, 0);
@@ -510,8 +512,8 @@ MoveTree * generateAll(char * state, int n_moves)
  */
 char * solve(char * state)
 {
-  MoveTree * all = NULL;
-  all = generateAll(state, MAX_SEARCH_DEPTH);
+  //MoveTree * all = NULL;
+  //all = generateAll(state, MAX_SEARCH_DEPTH);
   
   return NULL;
 }
