@@ -33,38 +33,19 @@ int main(int argc, char * * argv)
 }
 
  */
-int main(int argc, char * * argv)
+			    /*int main(int argc, char * * argv)
 {
-  char * stage = argv[1];
+  printf("test\n");
+  //char * stage = argv[1];
   char * state = argv[2];
   char * movelist = argv[3];
-  printf("Stage: %c\n", stage[0]);
-  printf("State: ");
-  printcharlist(state);
-  printf("Move List: ");
-  printcharlist(movelist);
-  if(isValidMoveList(movelist) == TRUE)
-    {
-      printf("Move list is valid.\n");
-    }
-  else
-    {
-      printf("Move list is not valid.\n");
-    }
-  if(isValidState(state) == TRUE)
-    {
-      printf("State is valid.\n");
-    }
-  else
-    {
-      printf("State is not valid.\n");
-    }
-  printPuzzle(state);
-  printf("Processing moves.\n");
-  processMoveList(state, movelist);
-  printPuzzle(state);
+  printf("testing\n");
+  MoveTree * tr = NULL;
+  tr = MoveTree_create(state, movelist);
+  MoveTree_destroy(tr);
   return 0;
-}
+  }*/
+
 void printcharlist(char * list)
 {
   int i = 0;
@@ -286,8 +267,10 @@ void processMoveList(char * state, const char * movelist)
  */
 MoveTree * MoveTree_create(const char * state, const char * moves)
 {
-  MoveTree * Tree;
+  MoveTree * Tree = NULL;
   Tree = malloc(sizeof(MoveTree));
+  Tree -> state = malloc(sizeof(char) * strlen(state));
+  Tree -> moves = malloc(sizeof(char) * strlen(moves));
   memcpy(Tree -> state, state, strlen(state));
   memcpy(Tree -> moves, moves, strlen(moves));
   Tree -> left = NULL;
@@ -302,6 +285,8 @@ void MoveTree_destroy(MoveTree * node)
 {
   if(node == NULL)
     return;
+  free(node -> state);
+  free(node -> moves);
   MoveTree_destroy(node -> left);
   MoveTree_destroy(node -> right);
   free(node);
@@ -427,19 +412,89 @@ void generateAllHelper(MoveTree * root, // Root of the tree
 {
   if(ind == n_moves)
     {
-      	//generate n moves
-	//->create a new state, return
+      return;
+      //generate n moves
+      //->create a new state, return
     }
-  //int i = 0;
-  
-  
+  int dir;
+  char * dupstate = malloc(sizeof(char) * 16);
+  for(dir = 0; dir < 4; dir++)
+    {
+      if(dir == 0)
+	{
+	  memcpy(dupstate, state, 16);
+	  if(move(dupstate, 'U'))
+	    {
+	      movelist[ind] = 'U';
+	      movelist[ind + 1] = '\0';
+	      MoveTree_insert(root, dupstate, movelist); 
+	      generateAllHelper(root,  n_moves, dupstate, movelist, ind + 1);
+	      free(dupstate);
+	    }
+	  else
+	    {
+	      free(dupstate);
+	    }
+	}
+      else if(dir == 1)
+	{
+	  memcpy(dupstate, state, 16);
+	  if(move(dupstate, 'L'))
+	    {
+	      movelist[ind] = 'L';
+	      movelist[ind + 1] = '\0';
+	      MoveTree_insert(root, dupstate, movelist); 
+	      generateAllHelper(root,  n_moves, dupstate, movelist, ind + 1);
+	      free(dupstate);
+	    }
+	  else
+	    {
+	      free(dupstate);
+	    }  
+	}
+      else if(dir == 2)
+	{
+	  memcpy(dupstate, state, 16);
+	  if(move(dupstate, 'D'))
+	    {
+	      movelist[ind] = 'D';
+	      movelist[ind + 1] = '\0';
+	      MoveTree_insert(root, dupstate, movelist); 
+	      generateAllHelper(root,  n_moves, dupstate, movelist, ind + 1);
+	      free(dupstate);
+	    }
+	  else
+	    {
+	      free(dupstate);
+	    }
+	}
+      else
+	{
+	  memcpy(dupstate, state, 16);
+	  if(move(dupstate, 'R'))
+	    {
+	      movelist[ind] = 'R';
+	      movelist[ind + 1] = '\0';
+	      MoveTree_insert(root, dupstate, movelist); 
+	      generateAllHelper(root,  n_moves, dupstate, movelist, ind + 1);
+	      free(dupstate);
+	    }
+	  else
+	    {
+	      free(dupstate);
+	    }
+	}
+    }
 }
 
 MoveTree * generateAll(char * state, int n_moves)
 { 
-  //char * movelistbuff = malloc(sizeof(char) * n_moves);
-  
-  return NULL;
+  char * movelistbuff = malloc(sizeof(char) * (n_moves+1));
+  MoveTree * Tr = NULL;
+  Tr = MoveTree_create(state, movelistbuff);
+  generateAllHelper(Tr, n_moves, state, movelistbuff, 0);
+  free(movelistbuff);
+  return Tr;
 }
 
 /**
