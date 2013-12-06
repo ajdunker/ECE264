@@ -88,7 +88,7 @@ int isValidState(const char * state)
     }
   char buffer[17];
   strcpy(buffer, state);
-  qsort(buffer, 16, 1, compare);
+  qsort(buffer, strlen(state), sizeof(char), compare);
   if(strcmp(buffer,"-123456789ABCDEF") == 0)
     {
       return TRUE;
@@ -104,13 +104,11 @@ int isValidState(const char * state)
  */ 
 int isValidMoveList(const char * moves)
 {
+  int len = strlen(moves);
   int i;
-  for(i = 0; i < strlen(moves); i++)
+  for(i = 0; i <  len; i++)
     {
-      if(moves[i] == 'R' || 'L' || 'U' || 'D')
-	{
-	}
-      else
+      if(moves[i] != 'R' && moves[i] != 'L' && moves[i] != 'U' && moves[i] != 'D')
 	{
 	  return FALSE;
 	}
@@ -158,12 +156,6 @@ void printPuzzle(const char * state)
  *     be 'new_row * SIDELENGTH + new_col'
  * (5) Swap the characters at 'position' and 'target_position'
  */
-void swap(char* s, int left, int right)
- {
-   char tmp = s[left];
-   s[left] = s[right];
-   s[right] = tmp;
-}
 int move(char * state, char m)
 {    
   int ind;
@@ -181,7 +173,8 @@ int move(char * state, char m)
       if(nrow >= 0 && nrow < SIDELENGTH)
 	{
 	  target = (nrow * SIDELENGTH) + (col);
-	  swap(state, target, ind);
+	  state[ind] = state[target];
+	  state[target] = '-';
 	  return TRUE;
 	}
       else
@@ -195,7 +188,8 @@ int move(char * state, char m)
       if(ncol >= 0 && ncol < SIDELENGTH)
 	{
 	  target = (row * SIDELENGTH) + (ncol);
-	  swap(state, target, ind);
+	  state[ind] = state[target];
+	  state[target] = '-';
 	  return TRUE;
 	}
       else
@@ -209,7 +203,8 @@ int move(char * state, char m)
       if(ncol >= 0 && ncol < SIDELENGTH)
 	{
 	  target = (row * SIDELENGTH) + (ncol);
-	  swap(state, target, ind);
+	  state[ind] = state[target];
+	  state[target] = '-';
 	  return TRUE;
 	}
       else
@@ -217,13 +212,14 @@ int move(char * state, char m)
 	  return FALSE;
 	}
     }
-  else
+  else if(m == 'D')
     {
       nrow = row + 1;
       if(nrow >= 0 && nrow < SIDELENGTH)
 	{
 	  target = (nrow * SIDELENGTH) + (col);
-	  swap(state, target, ind);
+	  state[ind] = state[target];
+	  state[target] = '-';
 	  return TRUE;
 	}
       else
@@ -250,10 +246,12 @@ int move(char * state, char m)
 void processMoveList(char * state, const char * movelist)
 {
   int i;
-  for(i = 0; i < strlen(movelist); i++)
+  int validlist = TRUE;
+  for(i = 0; i < strlen(movelist) && validlist; i++)
     {
       if(!move(state, movelist[i]))
 	{
+	  validlist = FALSE;
 	  printf("I\n");
 	  return;
 	}
@@ -280,7 +278,9 @@ MoveTree * MoveTree_create(const char * state, const char * moves)
 void MoveTree_destroy(MoveTree * node)
 {
   if(node == NULL)
-    return;
+    {
+      return;
+    }
   MoveTree_destroy(node -> left);
   MoveTree_destroy(node -> right);
   free(node -> state);
@@ -412,56 +412,26 @@ void generateAllHelper(MoveTree * root, // Root of the tree
       return;
     }
   int dir;
+  const char directions[] = { 'U', 'D', 'L', 'R' };
   for(dir = 0; dir < 4; dir++)
     {
       char * dupstate = strdup(state);
-      if(dir == 0)
+      char movement = directions[dir];
+      if(move(dupstate, movement))
 	{
-	  if(move(dupstate, 'U'))
-	    {
-	      movelist[ind] = 'U';
-	      movelist[ind + 1] = '\0';
-	      MoveTree_insert(root, dupstate, movelist);
-	      generateAllHelper(root, n_moves, dupstate, movelist, ind + 1);
-	    }
+	  movelist[ind] = movement;
+	  movelist[ind+1] = '\0'; // Terminates the movelist
+	  MoveTree_insert(root, dupstate, movelist);
+	  generateAllHelper(root, n_moves, dupstate, movelist, ind + 1);
 	}
-      if(dir == 1)
-	{
-	  if(move(dupstate, 'L'))
-	    {
-	      movelist[ind] = 'L';
-	      movelist[ind + 1] = '\0';
-	      MoveTree_insert(root, dupstate, movelist); 
-	      generateAllHelper(root,  n_moves, dupstate, movelist, ind + 1);
-	    } 
-	}
-      if(dir == 2)
-	{
-	  if(move(dupstate, 'D'))
-	    {
-	      movelist[ind] = 'D';
-	      movelist[ind + 1] = '\0';
-	      MoveTree_insert(root, dupstate, movelist); 
-	      generateAllHelper(root,  n_moves, dupstate, movelist, ind + 1);
-	    }
-	}
-      if(dir == 3)
-	{
-	  if(move(dupstate, 'R'))
-	    {
-	      movelist[ind] = 'R';
-	      movelist[ind + 1] = '\0';
-	      MoveTree_insert(root, dupstate, movelist); 
-	      generateAllHelper(root,  n_moves, dupstate, movelist, ind + 1);
-	    }
-	}
+
       free(dupstate);
     }
 }
 
 MoveTree * generateAll(char * state, int n_moves)
 { 
-  MoveTree * Tr = MoveTree_create(state, "");
+  MoveTree * Tr = NULL;
   char * movelistbuff = malloc(sizeof(char) * (n_moves+1));
   movelistbuff[n_moves] = '\0';
   Tr = MoveTree_create(state, movelistbuff);
