@@ -33,7 +33,8 @@ int main(int argc, char * * argv)
 }
 
  */
-			    /*int main(int argc, char * * argv)
+/*
+int main(int argc, char * * argv)
 {
   printf("test\n");
   //char * stage = argv[1];
@@ -42,9 +43,11 @@ int main(int argc, char * * argv)
   printf("testing\n");
   MoveTree * tr = NULL;
   tr = MoveTree_create(state, movelist);
+  MoveTree_print(tr);
   MoveTree_destroy(tr);
   return 0;
-  }*/
+  }
+*/
 
 void printcharlist(char * list)
 {
@@ -303,22 +306,25 @@ MoveTree * MoveTree_insert(MoveTree * node, const char * state,
 {
   if(node == NULL)
     {
-      MoveTree_create(state, moves);
+      return MoveTree_create(state, moves);
     }
-  else if(node -> state == state)
+  if(strcmp((node -> state), state) == 0)
     {
-	memcpy(node -> moves, moves, strlen(moves));
+      if(strlen((node -> moves)) > strlen(moves))
+  	{
+  	  memcpy(node -> moves, moves, strlen(moves));
+  	}
       return node;
     }
-  else if(node -> state > state)//go to the left side
+  if(strcmp((node -> state), state) > 0)//go to the left side
     {
-      node -> left = MoveTree_insert(node, state, moves);
+      node -> left = MoveTree_insert(node -> left, state, moves);
     }
   else
     {
-      node -> right = MoveTree_insert(node, state,moves);
+      node -> right = MoveTree_insert(node -> right, state, moves);
     }
-  
+  printf("test4\n");
   return node;
 }
 
@@ -413,8 +419,6 @@ void generateAllHelper(MoveTree * root, // Root of the tree
   if(ind == n_moves)
     {
       return;
-      //generate n moves
-      //->create a new state, return
     }
   int dir;
   char * dupstate = malloc(sizeof(char) * 16);
@@ -423,7 +427,7 @@ void generateAllHelper(MoveTree * root, // Root of the tree
       if(dir == 0)
 	{
 	  memcpy(dupstate, state, 16);
-	  if(move(dupstate, 'U'))
+	  if(!move(dupstate, 'U'))
 	    {
 	      movelist[ind] = 'U';
 	      movelist[ind + 1] = '\0';
@@ -439,7 +443,7 @@ void generateAllHelper(MoveTree * root, // Root of the tree
       else if(dir == 1)
 	{
 	  memcpy(dupstate, state, 16);
-	  if(move(dupstate, 'L'))
+	  if(!move(dupstate, 'L'))
 	    {
 	      movelist[ind] = 'L';
 	      movelist[ind + 1] = '\0';
@@ -455,7 +459,7 @@ void generateAllHelper(MoveTree * root, // Root of the tree
       else if(dir == 2)
 	{
 	  memcpy(dupstate, state, 16);
-	  if(move(dupstate, 'D'))
+	  if(!move(dupstate, 'D'))
 	    {
 	      movelist[ind] = 'D';
 	      movelist[ind + 1] = '\0';
@@ -471,7 +475,7 @@ void generateAllHelper(MoveTree * root, // Root of the tree
       else
 	{
 	  memcpy(dupstate, state, 16);
-	  if(move(dupstate, 'R'))
+	  if(!move(dupstate, 'R'))
 	    {
 	      movelist[ind] = 'R';
 	      movelist[ind + 1] = '\0';
@@ -506,6 +510,9 @@ MoveTree * generateAll(char * state, int n_moves)
  */
 char * solve(char * state)
 {
-    return NULL;
+  MoveTree * all = NULL;
+  all = generateAll(state, MAX_SEARCH_DEPTH);
+  
+  return NULL;
 }
 
