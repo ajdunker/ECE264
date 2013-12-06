@@ -1,0 +1,278 @@
+==7017== Memcheck, a memory error detector
+==7017== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+==7017== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+==7017== Command: ./pa11 3 -23416785ABC9DEF
+==7017== Parent PID: 7012
+==7017== 
+--7017-- 
+--7017-- Valgrind options:
+--7017--    --tool=memcheck
+--7017--    --leak-check=full
+--7017--    --verbose
+--7017--    --log-file=outputs/valgrindlog3
+--7017-- Contents of /proc/version:
+--7017--   Linux version 2.6.32-431.el6.x86_64 (mockbuild@x86-023.build.eng.bos.redhat.com) (gcc version 4.4.7 20120313 (Red Hat 4.4.7-4) (GCC) ) #1 SMP Sun Nov 10 22:19:54 EST 2013
+--7017-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--7017-- Page sizes: currently 4096, max supported 4096
+--7017-- Valgrind library directory: /usr/lib64/valgrind
+--7017-- Reading syms from /home/shay/a/adunker/ECE264/solutions/ECE264/PA11/pa11
+--7017-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux
+--7017--    object doesn't have a dynamic symbol table
+--7017-- Reading syms from /lib64/ld-2.12.so
+--7017-- Scheduler: using generic scheduler lock implementation.
+--7017-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+==7017== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-7017-by-adunker-on-ecelinux09.ecn.purdue.edu
+==7017== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-7017-by-adunker-on-ecelinux09.ecn.purdue.edu
+==7017== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-7017-by-adunker-on-ecelinux09.ecn.purdue.edu
+==7017== 
+==7017== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==7017== don't want to do, unless you know exactly what you're doing,
+==7017== or are doing some strange experiment):
+==7017==   /usr/lib64/valgrind/../../bin/vgdb --pid=7017 ...command...
+==7017== 
+==7017== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==7017==   /path/to/gdb ./pa11
+==7017== and then give GDB the following command
+==7017==   target remote | /usr/lib64/valgrind/../../bin/vgdb --pid=7017
+==7017== --pid is optional if only one valgrind process is running
+==7017== 
+--7017-- REDIR: 0x3483817530 (strlen) redirected to 0x38049551 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--7017-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so
+--7017-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so
+--7017-- REDIR: 0x34838173a0 (index) redirected to 0x4a07bf0 (index)
+--7017-- REDIR: 0x3483817420 (strcmp) redirected to 0x4a08530 (strcmp)
+--7017-- Reading syms from /lib64/libc-2.12.so
+--7017-- REDIR: 0x3483c84fb0 (strcasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--7017-- REDIR: 0x3483c87270 (strncasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--7017-- REDIR: 0x3483c82f20 (__GI_strrchr) redirected to 0x4a07a70 (__GI_strrchr)
+--7017-- REDIR: 0x3483c81400 (strlen) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--7017-- REDIR: 0x3483d33860 (__strlen_sse42) redirected to 0x4a07f50 (strlen)
+--7017-- REDIR: 0x3483c80e50 (strcpy) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--7017-- REDIR: 0x3483d34300 (???) redirected to 0x4a07f90 (strcpy)
+--7017-- REDIR: 0x3483c847e0 (mempcpy) redirected to 0x4a09f80 (mempcpy)
+--7017-- REDIR: 0x3483c89950 (memcpy) redirected to 0x4a08b20 (memcpy)
+--7017-- REDIR: 0x3483c7b800 (free) redirected to 0x4a06369 (free)
+--7017-- REDIR: 0x3483c7f9c0 (strcmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--7017-- REDIR: 0x3483d28590 (__strcmp_sse42) redirected to 0x4a08490 (strcmp)
+--7017-- REDIR: 0x3483c7a920 (malloc) redirected to 0x4a0696c (malloc)
+--7017-- REDIR: 0x3483c81440 (__GI_strlen) redirected to 0x4a07f70 (__GI_strlen)
+==7017== Conditional jump or move depends on uninitialised value(s)
+==7017==    at 0x4A07F79: __GI_strlen (mc_replace_strmem.c:404)
+==7017==    by 0x3483C81165: strdup (in /lib64/libc-2.12.so)
+==7017==    by 0x400CF3: MoveTree_create (answer11.c:271)
+==7017==    by 0x4011D8: generateAll (answer11.c:467)
+==7017==    by 0x40122F: solve (answer11.c:482)
+==7017==    by 0x4014B9: main (pa11.c:60)
+==7017== 
+--7017-- REDIR: 0x3483c7f910 (index) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--7017-- REDIR: 0x3483d284e0 (__strchr_sse42) redirected to 0x4a07b00 (index)
+==7017== Conditional jump or move depends on uninitialised value(s)
+==7017==    at 0x4A07F59: strlen (mc_replace_strmem.c:403)
+==7017==    by 0x400E6D: MoveTree_insert (answer11.c:314)
+==7017==    by 0x400FEA: generateAllHelper (answer11.c:424)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x4011FB: generateAll (answer11.c:468)
+==7017==    by 0x40122F: solve (answer11.c:482)
+==7017==    by 0x4014B9: main (pa11.c:60)
+==7017== 
+==7017== Conditional jump or move depends on uninitialised value(s)
+==7017==    at 0x4A07F59: strlen (mc_replace_strmem.c:403)
+==7017==    by 0x400E6D: MoveTree_insert (answer11.c:314)
+==7017==    by 0x40105A: generateAllHelper (answer11.c:434)
+==7017==    by 0x40115C: generateAllHelper (answer11.c:455)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x4011FB: generateAll (answer11.c:468)
+==7017==    by 0x40122F: solve (answer11.c:482)
+==7017== 
+==7017== Conditional jump or move depends on uninitialised value(s)
+==7017==    at 0x4A07F59: strlen (mc_replace_strmem.c:403)
+==7017==    by 0x400E6D: MoveTree_insert (answer11.c:314)
+==7017==    by 0x400FEA: generateAllHelper (answer11.c:424)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x4011FB: generateAll (answer11.c:468)
+==7017==    by 0x40122F: solve (answer11.c:482)
+==7017== 
+==7017== Conditional jump or move depends on uninitialised value(s)
+==7017==    at 0x4A07F59: strlen (mc_replace_strmem.c:403)
+==7017==    by 0x400E6D: MoveTree_insert (answer11.c:314)
+==7017==    by 0x400FEA: generateAllHelper (answer11.c:424)
+==7017==    by 0x40107C: generateAllHelper (answer11.c:435)
+==7017==    by 0x40115C: generateAllHelper (answer11.c:455)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x4011FB: generateAll (answer11.c:468)
+==7017==    by 0x40122F: solve (answer11.c:482)
+==7017== 
+==7017== Conditional jump or move depends on uninitialised value(s)
+==7017==    at 0x4A07F59: strlen (mc_replace_strmem.c:403)
+==7017==    by 0x400E6D: MoveTree_insert (answer11.c:314)
+==7017==    by 0x40105A: generateAllHelper (answer11.c:434)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x40115C: generateAllHelper (answer11.c:455)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x4011FB: generateAll (answer11.c:468)
+==7017==    by 0x40122F: solve (answer11.c:482)
+==7017== 
+==7017== Conditional jump or move depends on uninitialised value(s)
+==7017==    at 0x4A07F59: strlen (mc_replace_strmem.c:403)
+==7017==    by 0x400E6D: MoveTree_insert (answer11.c:314)
+==7017==    by 0x40105A: generateAllHelper (answer11.c:434)
+==7017==    by 0x40107C: generateAllHelper (answer11.c:435)
+==7017==    by 0x40115C: generateAllHelper (answer11.c:455)
+==7017==    by 0x40115C: generateAllHelper (answer11.c:455)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x4011FB: generateAll (answer11.c:468)
+==7017==    by 0x40122F: solve (answer11.c:482)
+==7017== 
+--7017-- REDIR: 0x3483c8add0 (strchrnul) redirected to 0x4a09f10 (strchrnul)
+==7017== 
+==7017== HEAP SUMMARY:
+==7017==     in use at exit: 50 bytes in 3 blocks
+==7017==   total heap usage: 41,890 allocs, 41,887 frees, 725,972 bytes allocated
+==7017== 
+==7017== Searching for pointers to 3 not-freed blocks
+==7017== Checked 64,248 bytes
+==7017== 
+==7017== 50 (32 direct, 18 indirect) bytes in 1 blocks are definitely lost in loss record 3 of 3
+==7017==    at 0x4A069EE: malloc (vg_replace_malloc.c:270)
+==7017==    by 0x400CCD: MoveTree_create (answer11.c:269)
+==7017==    by 0x4011A1: generateAll (answer11.c:464)
+==7017==    by 0x40122F: solve (answer11.c:482)
+==7017==    by 0x4014B9: main (pa11.c:60)
+==7017== 
+==7017== LEAK SUMMARY:
+==7017==    definitely lost: 32 bytes in 1 blocks
+==7017==    indirectly lost: 18 bytes in 2 blocks
+==7017==      possibly lost: 0 bytes in 0 blocks
+==7017==    still reachable: 0 bytes in 0 blocks
+==7017==         suppressed: 0 bytes in 0 blocks
+==7017== 
+==7017== Use --track-origins=yes to see where uninitialised values come from
+==7017== ERROR SUMMARY: 312 errors from 8 contexts (suppressed: 6 from 6)
+==7017== 
+==7017== 1 errors in context 1 of 8:
+==7017== Conditional jump or move depends on uninitialised value(s)
+==7017==    at 0x4A07F79: __GI_strlen (mc_replace_strmem.c:404)
+==7017==    by 0x3483C81165: strdup (in /lib64/libc-2.12.so)
+==7017==    by 0x400CF3: MoveTree_create (answer11.c:271)
+==7017==    by 0x4011D8: generateAll (answer11.c:467)
+==7017==    by 0x40122F: solve (answer11.c:482)
+==7017==    by 0x4014B9: main (pa11.c:60)
+==7017== 
+==7017== 
+==7017== 44 errors in context 2 of 8:
+==7017== Conditional jump or move depends on uninitialised value(s)
+==7017==    at 0x4A07F59: strlen (mc_replace_strmem.c:403)
+==7017==    by 0x400E6D: MoveTree_insert (answer11.c:314)
+==7017==    by 0x40105A: generateAllHelper (answer11.c:434)
+==7017==    by 0x40107C: generateAllHelper (answer11.c:435)
+==7017==    by 0x40115C: generateAllHelper (answer11.c:455)
+==7017==    by 0x40115C: generateAllHelper (answer11.c:455)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x4011FB: generateAll (answer11.c:468)
+==7017==    by 0x40122F: solve (answer11.c:482)
+==7017== 
+==7017== 
+==7017== 44 errors in context 3 of 8:
+==7017== Conditional jump or move depends on uninitialised value(s)
+==7017==    at 0x4A07F59: strlen (mc_replace_strmem.c:403)
+==7017==    by 0x400E6D: MoveTree_insert (answer11.c:314)
+==7017==    by 0x400FEA: generateAllHelper (answer11.c:424)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x4011FB: generateAll (answer11.c:468)
+==7017==    by 0x40122F: solve (answer11.c:482)
+==7017== 
+==7017== 
+==7017== 53 errors in context 4 of 8:
+==7017== Conditional jump or move depends on uninitialised value(s)
+==7017==    at 0x4A07F59: strlen (mc_replace_strmem.c:403)
+==7017==    by 0x400E6D: MoveTree_insert (answer11.c:314)
+==7017==    by 0x40105A: generateAllHelper (answer11.c:434)
+==7017==    by 0x40115C: generateAllHelper (answer11.c:455)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x4011FB: generateAll (answer11.c:468)
+==7017==    by 0x40122F: solve (answer11.c:482)
+==7017== 
+==7017== 
+==7017== 53 errors in context 5 of 8:
+==7017== Conditional jump or move depends on uninitialised value(s)
+==7017==    at 0x4A07F59: strlen (mc_replace_strmem.c:403)
+==7017==    by 0x400E6D: MoveTree_insert (answer11.c:314)
+==7017==    by 0x400FEA: generateAllHelper (answer11.c:424)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x4011FB: generateAll (answer11.c:468)
+==7017==    by 0x40122F: solve (answer11.c:482)
+==7017==    by 0x4014B9: main (pa11.c:60)
+==7017== 
+==7017== 
+==7017== 58 errors in context 6 of 8:
+==7017== Conditional jump or move depends on uninitialised value(s)
+==7017==    at 0x4A07F59: strlen (mc_replace_strmem.c:403)
+==7017==    by 0x400E6D: MoveTree_insert (answer11.c:314)
+==7017==    by 0x40105A: generateAllHelper (answer11.c:434)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x40115C: generateAllHelper (answer11.c:455)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x4011FB: generateAll (answer11.c:468)
+==7017==    by 0x40122F: solve (answer11.c:482)
+==7017== 
+==7017== 
+==7017== 58 errors in context 7 of 8:
+==7017== Conditional jump or move depends on uninitialised value(s)
+==7017==    at 0x4A07F59: strlen (mc_replace_strmem.c:403)
+==7017==    by 0x400E6D: MoveTree_insert (answer11.c:314)
+==7017==    by 0x400FEA: generateAllHelper (answer11.c:424)
+==7017==    by 0x40107C: generateAllHelper (answer11.c:435)
+==7017==    by 0x40115C: generateAllHelper (answer11.c:455)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x40100C: generateAllHelper (answer11.c:425)
+==7017==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==7017==    by 0x4011FB: generateAll (answer11.c:468)
+==7017==    by 0x40122F: solve (answer11.c:482)
+==7017== 
+--7017-- 
+--7017-- used_suppression:      4 U1004-ARM-_dl_relocate_object
+--7017-- used_suppression:      2 glibc-2.5.x-on-SUSE-10.2-(PPC)-2a
+==7017== 
+==7017== ERROR SUMMARY: 312 errors from 8 contexts (suppressed: 6 from 6)

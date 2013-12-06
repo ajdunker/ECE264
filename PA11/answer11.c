@@ -33,7 +33,7 @@ int main(int argc, char * * argv)
 }
 
  */
-			    /*
+/*			    
 int main(int argc, char * * argv)
 {
   printf("test\n");
@@ -44,11 +44,13 @@ int main(int argc, char * * argv)
   MoveTree * tr = NULL;
   tr = MoveTree_create(state, movelist);
   MoveTree_insert(tr, "12-456389A7BDEFC", "UUU");
+  MoveTree_insert(tr, "123456789AFBDE-C", "LLUUU");
+  MoveTree_insert(tr, "123456789AFBDE-C", "UUU");
   MoveTree_print(tr);
   MoveTree_destroy(tr);
   return 0;
 }
-			    */
+*/			    
 
 void printcharlist(char * list)
 {
@@ -73,32 +75,25 @@ void printcharlist(char * list)
  * (3) Check that buffer is equal to "-123456789ABCDEF"
  */
 
-int compare_chars (const void *a_, const void *b_)
+int compare(const void * a, const void * b)
 {
-  const char *a = (const char *) a_;
-  const char *b = (const char *) b_;
-  return *a < *b ? -1 : *a > *b;
+   return *((char*)a) - *((char*)b);
 }
+
 int isValidState(const char * state)
 {
   if(strlen(state) != 16)
     {
       return FALSE;
     }
-  char * buffer = malloc(sizeof(char) * 16);
-  memcpy(buffer, state, 16);
-  qsort(buffer, 16, 1, compare_chars);
-  if(strcmp(buffer,"-123456789ABCDEF"))
+  char buffer[17];
+  strcpy(buffer, state);
+  qsort(buffer, 16, 1, compare);
+  if(strcmp(buffer,"-123456789ABCDEF") == 0)
     {
-      free(buffer);
-      return FALSE;
-    }
-  else
-    {
-      free(buffer);
       return TRUE;
     }
-  return TRUE;
+  return FALSE;
 }
 
 /** 
@@ -271,12 +266,9 @@ void processMoveList(char * state, const char * movelist)
  */
 MoveTree * MoveTree_create(const char * state, const char * moves)
 {
-  MoveTree * Tree = NULL;
-  Tree = malloc(sizeof(MoveTree));
-  Tree -> state = malloc(sizeof(char) * strlen(state));
-  Tree -> moves = malloc(sizeof(char) * strlen(moves));
-  memcpy(Tree -> state, state, strlen(state));
-  memcpy(Tree -> moves, moves, strlen(moves));
+  MoveTree * Tree = malloc(sizeof(MoveTree));
+  Tree -> state = strdup(state);
+  Tree -> moves = strdup(moves);
   Tree -> left = NULL;
   Tree -> right = NULL;
   return Tree;
@@ -289,10 +281,10 @@ void MoveTree_destroy(MoveTree * node)
 {
   if(node == NULL)
     return;
-  free(node -> state);
-  free(node -> moves);
   MoveTree_destroy(node -> left);
   MoveTree_destroy(node -> right);
+  free(node -> state);
+  free(node -> moves);
   free(node);
 }
 
@@ -309,23 +301,21 @@ MoveTree * MoveTree_insert(MoveTree * node, const char * state,
     {
       return MoveTree_create(state, moves);
     }
-  if(strcmp((node -> state), state) == 0)
-    {
-      if(strlen((node -> moves)) > strlen(moves))
-  	{
-  	  memcpy(node -> moves, moves, strlen(moves));
-  	}
-      return node;
-    }
-  if(strcmp((node -> state), state) > 0)//go to the left side
+  if(strcmp(state, node -> state) < 0)//go to the left side
     {
       node -> left = MoveTree_insert(node -> left, state, moves);
     }
-  else
+  else if(strcmp(state, node -> state) > 0)
     {
       node -> right = MoveTree_insert(node -> right, state, moves);
     }
-  printf("test4\n");
+  else if(strcmp(state, node -> state) == 0)
+    {
+      if(strlen(moves) < strlen(node -> moves)) 
+	{
+	  strcpy(node -> moves, moves); // overwrite with shorter seq
+	}
+    }
   return node;
 }
 
@@ -422,81 +412,58 @@ void generateAllHelper(MoveTree * root, // Root of the tree
       return;
     }
   int dir;
-  char * dupstate = malloc(sizeof(char) * 16);
   for(dir = 0; dir < 4; dir++)
     {
+      char * dupstate = strdup(state);
       if(dir == 0)
 	{
-	  memcpy(dupstate, state, 16);
-	  if(!move(dupstate, 'U'))
+	  if(move(dupstate, 'U'))
 	    {
 	      movelist[ind] = 'U';
 	      movelist[ind + 1] = '\0';
 	      MoveTree_insert(root, dupstate, movelist);
 	      generateAllHelper(root, n_moves, dupstate, movelist, ind + 1);
-	      free(dupstate);
-	    }
-	  else
-	    {
-	      free(dupstate);
 	    }
 	}
       if(dir == 1)
 	{
-	  memcpy(dupstate, state, 16);
-	  if(!move(dupstate, 'L'))
+	  if(move(dupstate, 'L'))
 	    {
 	      movelist[ind] = 'L';
 	      movelist[ind + 1] = '\0';
 	      MoveTree_insert(root, dupstate, movelist); 
 	      generateAllHelper(root,  n_moves, dupstate, movelist, ind + 1);
-	      free(dupstate);
-	    }
-	  else
-	    {
-	      free(dupstate);
-	    }  
+	    } 
 	}
       if(dir == 2)
 	{
-	  memcpy(dupstate, state, 16);
-	  if(!move(dupstate, 'D'))
+	  if(move(dupstate, 'D'))
 	    {
 	      movelist[ind] = 'D';
 	      movelist[ind + 1] = '\0';
 	      MoveTree_insert(root, dupstate, movelist); 
 	      generateAllHelper(root,  n_moves, dupstate, movelist, ind + 1);
-	      free(dupstate);
-	    }
-	  else
-	    {
-	      free(dupstate);
 	    }
 	}
-      else
+      if(dir == 3)
 	{
-	  memcpy(dupstate, state, 16);
-	  if(!move(dupstate, 'R'))
+	  if(move(dupstate, 'R'))
 	    {
 	      movelist[ind] = 'R';
 	      movelist[ind + 1] = '\0';
 	      MoveTree_insert(root, dupstate, movelist); 
 	      generateAllHelper(root,  n_moves, dupstate, movelist, ind + 1);
-	      free(dupstate);
-	    }
-	  else
-	    {
-	      free(dupstate);
 	    }
 	}
+      free(dupstate);
     }
 }
 
 MoveTree * generateAll(char * state, int n_moves)
 { 
+  MoveTree * Tr = MoveTree_create(state, "");
   char * movelistbuff = malloc(sizeof(char) * (n_moves+1));
-  movelistbuff = "";
-  MoveTree * Tr = NULL;
+  movelistbuff[n_moves] = '\0';
   Tr = MoveTree_create(state, movelistbuff);
   generateAllHelper(Tr, n_moves, state, movelistbuff, 0);
   free(movelistbuff);
@@ -512,9 +479,14 @@ MoveTree * generateAll(char * state, int n_moves)
  */
 char * solve(char * state)
 {
-  //MoveTree * all = NULL;
-  //all = generateAll(state, MAX_SEARCH_DEPTH);
-  
-  return NULL;
+  MoveTree * all =  generateAll(state, MAX_SEARCH_DEPTH);
+  MoveTree * solved = MoveTree_find(all, FINAL_STATE);
+  char * moveset = NULL;
+  if(solved != NULL)
+    {
+      moveset = strdup(solved -> moves);
+    }
+  MoveTree_destroy(all);
+  return moveset;
 }
 

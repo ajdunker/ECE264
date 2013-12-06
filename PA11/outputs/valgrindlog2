@@ -1,0 +1,140 @@
+==6980== Memcheck, a memory error detector
+==6980== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+==6980== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+==6980== Command: ./pa11 2 123-456789AFBDEC 2
+==6980== Parent PID: 6964
+==6980== 
+--6980-- 
+--6980-- Valgrind options:
+--6980--    --tool=memcheck
+--6980--    --leak-check=full
+--6980--    --verbose
+--6980--    --log-file=outputs/valgrindlog2
+--6980-- Contents of /proc/version:
+--6980--   Linux version 2.6.32-431.el6.x86_64 (mockbuild@x86-023.build.eng.bos.redhat.com) (gcc version 4.4.7 20120313 (Red Hat 4.4.7-4) (GCC) ) #1 SMP Sun Nov 10 22:19:54 EST 2013
+--6980-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--6980-- Page sizes: currently 4096, max supported 4096
+--6980-- Valgrind library directory: /usr/lib64/valgrind
+--6980-- Reading syms from /home/shay/a/adunker/ECE264/solutions/ECE264/PA11/pa11
+--6980-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux
+--6980--    object doesn't have a dynamic symbol table
+--6980-- Reading syms from /lib64/ld-2.12.so
+--6980-- Scheduler: using generic scheduler lock implementation.
+--6980-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+==6980== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-6980-by-adunker-on-ecelinux09.ecn.purdue.edu
+==6980== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-6980-by-adunker-on-ecelinux09.ecn.purdue.edu
+==6980== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-6980-by-adunker-on-ecelinux09.ecn.purdue.edu
+==6980== 
+==6980== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==6980== don't want to do, unless you know exactly what you're doing,
+==6980== or are doing some strange experiment):
+==6980==   /usr/lib64/valgrind/../../bin/vgdb --pid=6980 ...command...
+==6980== 
+==6980== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==6980==   /path/to/gdb ./pa11
+==6980== and then give GDB the following command
+==6980==   target remote | /usr/lib64/valgrind/../../bin/vgdb --pid=6980
+==6980== --pid is optional if only one valgrind process is running
+==6980== 
+--6980-- REDIR: 0x3483817530 (strlen) redirected to 0x38049551 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--6980-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so
+--6980-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so
+--6980-- REDIR: 0x34838173a0 (index) redirected to 0x4a07bf0 (index)
+--6980-- REDIR: 0x3483817420 (strcmp) redirected to 0x4a08530 (strcmp)
+--6980-- Reading syms from /lib64/libc-2.12.so
+--6980-- REDIR: 0x3483c84fb0 (strcasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--6980-- REDIR: 0x3483c87270 (strncasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--6980-- REDIR: 0x3483c82f20 (__GI_strrchr) redirected to 0x4a07a70 (__GI_strrchr)
+--6980-- REDIR: 0x3483c81400 (strlen) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--6980-- REDIR: 0x3483d33860 (__strlen_sse42) redirected to 0x4a07f50 (strlen)
+--6980-- REDIR: 0x3483c80e50 (strcpy) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--6980-- REDIR: 0x3483d34300 (???) redirected to 0x4a07f90 (strcpy)
+--6980-- REDIR: 0x3483c847e0 (mempcpy) redirected to 0x4a09f80 (mempcpy)
+--6980-- REDIR: 0x3483c89950 (memcpy) redirected to 0x4a08b20 (memcpy)
+--6980-- REDIR: 0x3483c7b800 (free) redirected to 0x4a06369 (free)
+--6980-- REDIR: 0x3483c7f9c0 (strcmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--6980-- REDIR: 0x3483d28590 (__strcmp_sse42) redirected to 0x4a08490 (strcmp)
+--6980-- REDIR: 0x3483c7a920 (malloc) redirected to 0x4a0696c (malloc)
+--6980-- REDIR: 0x3483c81440 (__GI_strlen) redirected to 0x4a07f70 (__GI_strlen)
+==6980== Conditional jump or move depends on uninitialised value(s)
+==6980==    at 0x4A07F79: __GI_strlen (mc_replace_strmem.c:404)
+==6980==    by 0x3483C81165: strdup (in /lib64/libc-2.12.so)
+==6980==    by 0x400CF3: MoveTree_create (answer11.c:271)
+==6980==    by 0x4011D8: generateAll (answer11.c:467)
+==6980==    by 0x401475: main (pa11.c:54)
+==6980== 
+--6980-- REDIR: 0x3483c7f910 (index) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--6980-- REDIR: 0x3483d284e0 (__strchr_sse42) redirected to 0x4a07b00 (index)
+==6980== Conditional jump or move depends on uninitialised value(s)
+==6980==    at 0x4A07F59: strlen (mc_replace_strmem.c:403)
+==6980==    by 0x400E6D: MoveTree_insert (answer11.c:314)
+==6980==    by 0x40113A: generateAllHelper (answer11.c:454)
+==6980==    by 0x40107C: generateAllHelper (answer11.c:435)
+==6980==    by 0x4011FB: generateAll (answer11.c:468)
+==6980==    by 0x401475: main (pa11.c:54)
+==6980== 
+==6980== Conditional jump or move depends on uninitialised value(s)
+==6980==    at 0x4A07F59: strlen (mc_replace_strmem.c:403)
+==6980==    by 0x400E6D: MoveTree_insert (answer11.c:314)
+==6980==    by 0x400FEA: generateAllHelper (answer11.c:424)
+==6980==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==6980==    by 0x4011FB: generateAll (answer11.c:468)
+==6980==    by 0x401475: main (pa11.c:54)
+==6980== 
+==6980== 
+==6980== HEAP SUMMARY:
+==6980==     in use at exit: 50 bytes in 3 blocks
+==6980==   total heap usage: 37 allocs, 34 frees, 617 bytes allocated
+==6980== 
+==6980== Searching for pointers to 3 not-freed blocks
+==6980== Checked 64,264 bytes
+==6980== 
+==6980== 50 (32 direct, 18 indirect) bytes in 1 blocks are definitely lost in loss record 3 of 3
+==6980==    at 0x4A069EE: malloc (vg_replace_malloc.c:270)
+==6980==    by 0x400CCD: MoveTree_create (answer11.c:269)
+==6980==    by 0x4011A1: generateAll (answer11.c:464)
+==6980==    by 0x401475: main (pa11.c:54)
+==6980== 
+==6980== LEAK SUMMARY:
+==6980==    definitely lost: 32 bytes in 1 blocks
+==6980==    indirectly lost: 18 bytes in 2 blocks
+==6980==      possibly lost: 0 bytes in 0 blocks
+==6980==    still reachable: 0 bytes in 0 blocks
+==6980==         suppressed: 0 bytes in 0 blocks
+==6980== 
+==6980== Use --track-origins=yes to see where uninitialised values come from
+==6980== ERROR SUMMARY: 4 errors from 4 contexts (suppressed: 6 from 6)
+==6980== 
+==6980== 1 errors in context 1 of 4:
+==6980== Conditional jump or move depends on uninitialised value(s)
+==6980==    at 0x4A07F59: strlen (mc_replace_strmem.c:403)
+==6980==    by 0x400E6D: MoveTree_insert (answer11.c:314)
+==6980==    by 0x400FEA: generateAllHelper (answer11.c:424)
+==6980==    by 0x4010EC: generateAllHelper (answer11.c:445)
+==6980==    by 0x4011FB: generateAll (answer11.c:468)
+==6980==    by 0x401475: main (pa11.c:54)
+==6980== 
+==6980== 
+==6980== 1 errors in context 2 of 4:
+==6980== Conditional jump or move depends on uninitialised value(s)
+==6980==    at 0x4A07F59: strlen (mc_replace_strmem.c:403)
+==6980==    by 0x400E6D: MoveTree_insert (answer11.c:314)
+==6980==    by 0x40113A: generateAllHelper (answer11.c:454)
+==6980==    by 0x40107C: generateAllHelper (answer11.c:435)
+==6980==    by 0x4011FB: generateAll (answer11.c:468)
+==6980==    by 0x401475: main (pa11.c:54)
+==6980== 
+==6980== 
+==6980== 1 errors in context 3 of 4:
+==6980== Conditional jump or move depends on uninitialised value(s)
+==6980==    at 0x4A07F79: __GI_strlen (mc_replace_strmem.c:404)
+==6980==    by 0x3483C81165: strdup (in /lib64/libc-2.12.so)
+==6980==    by 0x400CF3: MoveTree_create (answer11.c:271)
+==6980==    by 0x4011D8: generateAll (answer11.c:467)
+==6980==    by 0x401475: main (pa11.c:54)
+==6980== 
+--6980-- 
+--6980-- used_suppression:      4 U1004-ARM-_dl_relocate_object
+--6980-- used_suppression:      2 glibc-2.5.x-on-SUSE-10.2-(PPC)-2a
+==6980== 
+==6980== ERROR SUMMARY: 4 errors from 4 contexts (suppressed: 6 from 6)

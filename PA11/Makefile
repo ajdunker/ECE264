@@ -8,8 +8,17 @@ TARGET = pa11
 # -------------------------------------------------------------
 
 test0: pa11
-	./pa11 inputs/input0_A inputs/input0_B
-	valgrind --tool=memcheck --leak-check=full --verbose --log-file=outputs/valgrindlog0 ./pa07 inputs/input0_A inputs/input0_B
+	./pa11 1 123456789AFBDE-C LLUUU
+	valgrind --tool=memcheck --leak-check=full --verbose --log-file=outputs/valgrindlog0 ./pa11 1 123456789AFBDE-C LLUUU
+test1: pa11
+	./pa11 1 123456789AFBDE-C D
+	valgrind --tool=memcheck --leak-check=full --verbose --log-file=outputs/valgrindlog1 ./pa11 1 123456789AFBDE-C D
+test2: pa11
+	./pa11 2 123-456789AFBDEC 2
+	valgrind --tool=memcheck --leak-check=full --verbose --log-file=outputs/valgrindlog2 ./pa11 2 123-456789AFBDEC 2
+test3: pa11
+	./pa11 3 -23416785ABC9DEF
+	valgrind --tool=memcheck --leak-check=full --verbose --log-file=outputs/valgrindlog3 ./pa11 3 -23416785ABC9DEF
 
 .PHONY : all build clean environment help testall $(TESTS)
 .DEFAULT_GOAL := build
