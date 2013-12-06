@@ -1,0 +1,230 @@
+==20675== Memcheck, a memory error detector
+==20675== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+==20675== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+==20675== Command: ./pa12 inputs/input1_set inputs/input1_num outputs/output1 3
+==20675== Parent PID: 20674
+==20675== 
+--20675-- 
+--20675-- Valgrind options:
+--20675--    --tool=memcheck
+--20675--    --leak-check=full
+--20675--    --verbose
+--20675--    --show-reachable=yes
+--20675--    --log-file=outputs/memoutput0
+--20675-- Contents of /proc/version:
+--20675--   Linux version 2.6.32-431.el6.x86_64 (mockbuild@x86-023.build.eng.bos.redhat.com) (gcc version 4.4.7 20120313 (Red Hat 4.4.7-4) (GCC) ) #1 SMP Sun Nov 10 22:19:54 EST 2013
+--20675-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--20675-- Page sizes: currently 4096, max supported 4096
+--20675-- Valgrind library directory: /usr/lib64/valgrind
+--20675-- Reading syms from /home/shay/a/adunker/ECE264/solutions/ECE264/PA12/pa12
+--20675-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux
+--20675--    object doesn't have a dynamic symbol table
+--20675-- Reading syms from /lib64/ld-2.12.so
+--20675-- Scheduler: using generic scheduler lock implementation.
+--20675-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+==20675== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-20675-by-adunker-on-ecelinux09.ecn.purdue.edu
+==20675== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-20675-by-adunker-on-ecelinux09.ecn.purdue.edu
+==20675== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-20675-by-adunker-on-ecelinux09.ecn.purdue.edu
+==20675== 
+==20675== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==20675== don't want to do, unless you know exactly what you're doing,
+==20675== or are doing some strange experiment):
+==20675==   /usr/lib64/valgrind/../../bin/vgdb --pid=20675 ...command...
+==20675== 
+==20675== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==20675==   /path/to/gdb ./pa12
+==20675== and then give GDB the following command
+==20675==   target remote | /usr/lib64/valgrind/../../bin/vgdb --pid=20675
+==20675== --pid is optional if only one valgrind process is running
+==20675== 
+--20675-- REDIR: 0x3483817530 (strlen) redirected to 0x38049551 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--20675-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so
+--20675-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so
+--20675-- REDIR: 0x34838173a0 (index) redirected to 0x4a07bf0 (index)
+--20675-- REDIR: 0x3483817420 (strcmp) redirected to 0x4a08530 (strcmp)
+--20675-- Reading syms from /lib64/libpthread-2.12.so
+--20675-- Reading syms from /lib64/libm-2.12.so
+--20675-- Reading syms from /lib64/libc-2.12.so
+--20675-- REDIR: 0x3483c84fb0 (strcasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--20675-- REDIR: 0x3483c87270 (strncasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--20675-- REDIR: 0x3483c81440 (__GI_strlen) redirected to 0x4a07f70 (__GI_strlen)
+--20675-- REDIR: 0x3483c82f20 (__GI_strrchr) redirected to 0x4a07a70 (__GI_strrchr)
+--20675-- REDIR: 0x3483c7a920 (malloc) redirected to 0x4a0696c (malloc)
+--20675-- REDIR: 0x3483c7b800 (free) redirected to 0x4a06369 (free)
+--20675-- REDIR: 0xffffffffff600000 (???) redirected to 0x38049533 (vgPlain_amd64_linux_REDIR_FOR_vgettimeofday)
+--20675-- REDIR: 0x3483c7a560 (calloc) redirected to 0x4a056d7 (calloc)
+--20675-- REDIR: 0x3483c8add0 (strchrnul) redirected to 0x4a09f10 (strchrnul)
+==20675== Thread 2:
+==20675== Use of uninitialised value of size 8
+==20675==    at 0x3483C43D9B: _itoa_word (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C46952: vfprintf (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C4F489: printf (in /lib64/libc-2.12.so)
+==20675==    by 0x400E72: isSubSetSum (subsetSum.c:39)
+==20675==    by 0x34844079D0: start_thread (in /lib64/libpthread-2.12.so)
+==20675==    by 0x5A3A6FF: ???
+==20675== 
+==20675== Conditional jump or move depends on uninitialised value(s)
+==20675==    at 0x3483C43DA5: _itoa_word (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C46952: vfprintf (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C4F489: printf (in /lib64/libc-2.12.so)
+==20675==    by 0x400E72: isSubSetSum (subsetSum.c:39)
+==20675==    by 0x34844079D0: start_thread (in /lib64/libpthread-2.12.so)
+==20675==    by 0x5A3A6FF: ???
+==20675== 
+==20675== Conditional jump or move depends on uninitialised value(s)
+==20675==    at 0x3483C453E3: vfprintf (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C4F489: printf (in /lib64/libc-2.12.so)
+==20675==    by 0x400E72: isSubSetSum (subsetSum.c:39)
+==20675==    by 0x34844079D0: start_thread (in /lib64/libpthread-2.12.so)
+==20675==    by 0x5A3A6FF: ???
+==20675== 
+==20675== Conditional jump or move depends on uninitialised value(s)
+==20675==    at 0x3483C45401: vfprintf (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C4F489: printf (in /lib64/libc-2.12.so)
+==20675==    by 0x400E72: isSubSetSum (subsetSum.c:39)
+==20675==    by 0x34844079D0: start_thread (in /lib64/libpthread-2.12.so)
+==20675==    by 0x5A3A6FF: ???
+==20675== 
+==20675== Use of uninitialised value of size 8
+==20675==    at 0x3483C43D9B: _itoa_word (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C46952: vfprintf (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C4F489: printf (in /lib64/libc-2.12.so)
+==20675==    by 0x400E8D: isSubSetSum (subsetSum.c:40)
+==20675==    by 0x34844079D0: start_thread (in /lib64/libpthread-2.12.so)
+==20675==    by 0x5A3A6FF: ???
+==20675== 
+==20675== Conditional jump or move depends on uninitialised value(s)
+==20675==    at 0x3483C43DA5: _itoa_word (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C46952: vfprintf (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C4F489: printf (in /lib64/libc-2.12.so)
+==20675==    by 0x400E8D: isSubSetSum (subsetSum.c:40)
+==20675==    by 0x34844079D0: start_thread (in /lib64/libpthread-2.12.so)
+==20675==    by 0x5A3A6FF: ???
+==20675== 
+==20675== Conditional jump or move depends on uninitialised value(s)
+==20675==    at 0x3483C453E3: vfprintf (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C4F489: printf (in /lib64/libc-2.12.so)
+==20675==    by 0x400E8D: isSubSetSum (subsetSum.c:40)
+==20675==    by 0x34844079D0: start_thread (in /lib64/libpthread-2.12.so)
+==20675==    by 0x5A3A6FF: ???
+==20675== 
+==20675== Conditional jump or move depends on uninitialised value(s)
+==20675==    at 0x3483C45401: vfprintf (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C4F489: printf (in /lib64/libc-2.12.so)
+==20675==    by 0x400E8D: isSubSetSum (subsetSum.c:40)
+==20675==    by 0x34844079D0: start_thread (in /lib64/libpthread-2.12.so)
+==20675==    by 0x5A3A6FF: ???
+==20675== 
+--20675-- Reading syms from /lib64/libgcc_s-4.4.7-20120601.so.1
+--20675--    object doesn't have a symbol table
+--20675-- REDIR: 0x3483c81400 (strlen) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--20675-- REDIR: 0x3483d33860 (__strlen_sse42) redirected to 0x4a07f50 (strlen)
+--20675-- REDIR: 0x3483c847e0 (mempcpy) redirected to 0x4a09f80 (mempcpy)
+--20675-- REDIR: 0x3483c83c80 (memset) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--20675-- REDIR: 0x3483c83cc0 (__GI_memset) redirected to 0x4a09a10 (memset)
+--20675-- Discarding syms at 0x348a402910-0x348a412f78 in /lib64/libgcc_s-4.4.7-20120601.so.1 due to munmap()
+==20675== 
+==20675== HEAP SUMMARY:
+==20675==     in use at exit: 48 bytes in 3 blocks
+==20675==   total heap usage: 15 allocs, 12 frees, 4,352 bytes allocated
+==20675== 
+==20675== Searching for pointers to 3 not-freed blocks
+==20675== Checked 92,920 bytes
+==20675== 
+==20675== Thread 1:
+==20675== 48 bytes in 3 blocks are definitely lost in loss record 1 of 1
+==20675==    at 0x4A069EE: malloc (vg_replace_malloc.c:270)
+==20675==    by 0x400EC4: subsetSum (subsetSum.c:48)
+==20675==    by 0x400DA9: main (pa12.c:101)
+==20675== 
+==20675== LEAK SUMMARY:
+==20675==    definitely lost: 48 bytes in 3 blocks
+==20675==    indirectly lost: 0 bytes in 0 blocks
+==20675==      possibly lost: 0 bytes in 0 blocks
+==20675==    still reachable: 0 bytes in 0 blocks
+==20675==         suppressed: 0 bytes in 0 blocks
+==20675== 
+==20675== Use --track-origins=yes to see where uninitialised values come from
+==20675== ERROR SUMMARY: 49 errors from 9 contexts (suppressed: 6 from 6)
+==20675== 
+==20675== 6 errors in context 1 of 9:
+==20675== Thread 2:
+==20675== Conditional jump or move depends on uninitialised value(s)
+==20675==    at 0x3483C45401: vfprintf (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C4F489: printf (in /lib64/libc-2.12.so)
+==20675==    by 0x400E8D: isSubSetSum (subsetSum.c:40)
+==20675==    by 0x34844079D0: start_thread (in /lib64/libpthread-2.12.so)
+==20675==    by 0x5A3A6FF: ???
+==20675== 
+==20675== 
+==20675== 6 errors in context 2 of 9:
+==20675== Conditional jump or move depends on uninitialised value(s)
+==20675==    at 0x3483C453E3: vfprintf (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C4F489: printf (in /lib64/libc-2.12.so)
+==20675==    by 0x400E8D: isSubSetSum (subsetSum.c:40)
+==20675==    by 0x34844079D0: start_thread (in /lib64/libpthread-2.12.so)
+==20675==    by 0x5A3A6FF: ???
+==20675== 
+==20675== 
+==20675== 6 errors in context 3 of 9:
+==20675== Conditional jump or move depends on uninitialised value(s)
+==20675==    at 0x3483C43DA5: _itoa_word (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C46952: vfprintf (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C4F489: printf (in /lib64/libc-2.12.so)
+==20675==    by 0x400E8D: isSubSetSum (subsetSum.c:40)
+==20675==    by 0x34844079D0: start_thread (in /lib64/libpthread-2.12.so)
+==20675==    by 0x5A3A6FF: ???
+==20675== 
+==20675== 
+==20675== 6 errors in context 4 of 9:
+==20675== Use of uninitialised value of size 8
+==20675==    at 0x3483C43D9B: _itoa_word (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C46952: vfprintf (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C4F489: printf (in /lib64/libc-2.12.so)
+==20675==    by 0x400E8D: isSubSetSum (subsetSum.c:40)
+==20675==    by 0x34844079D0: start_thread (in /lib64/libpthread-2.12.so)
+==20675==    by 0x5A3A6FF: ???
+==20675== 
+==20675== 
+==20675== 6 errors in context 5 of 9:
+==20675== Conditional jump or move depends on uninitialised value(s)
+==20675==    at 0x3483C45401: vfprintf (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C4F489: printf (in /lib64/libc-2.12.so)
+==20675==    by 0x400E72: isSubSetSum (subsetSum.c:39)
+==20675==    by 0x34844079D0: start_thread (in /lib64/libpthread-2.12.so)
+==20675==    by 0x5A3A6FF: ???
+==20675== 
+==20675== 
+==20675== 6 errors in context 6 of 9:
+==20675== Conditional jump or move depends on uninitialised value(s)
+==20675==    at 0x3483C453E3: vfprintf (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C4F489: printf (in /lib64/libc-2.12.so)
+==20675==    by 0x400E72: isSubSetSum (subsetSum.c:39)
+==20675==    by 0x34844079D0: start_thread (in /lib64/libpthread-2.12.so)
+==20675==    by 0x5A3A6FF: ???
+==20675== 
+==20675== 
+==20675== 6 errors in context 7 of 9:
+==20675== Conditional jump or move depends on uninitialised value(s)
+==20675==    at 0x3483C43DA5: _itoa_word (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C46952: vfprintf (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C4F489: printf (in /lib64/libc-2.12.so)
+==20675==    by 0x400E72: isSubSetSum (subsetSum.c:39)
+==20675==    by 0x34844079D0: start_thread (in /lib64/libpthread-2.12.so)
+==20675==    by 0x5A3A6FF: ???
+==20675== 
+==20675== 
+==20675== 6 errors in context 8 of 9:
+==20675== Use of uninitialised value of size 8
+==20675==    at 0x3483C43D9B: _itoa_word (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C46952: vfprintf (in /lib64/libc-2.12.so)
+==20675==    by 0x3483C4F489: printf (in /lib64/libc-2.12.so)
+==20675==    by 0x400E72: isSubSetSum (subsetSum.c:39)
+==20675==    by 0x34844079D0: start_thread (in /lib64/libpthread-2.12.so)
+==20675==    by 0x5A3A6FF: ???
+==20675== 
+--20675-- 
+--20675-- used_suppression:      4 U1004-ARM-_dl_relocate_object
+--20675-- used_suppression:      2 glibc-2.5.x-on-SUSE-10.2-(PPC)-2a
+==20675== 
+==20675== ERROR SUMMARY: 49 errors from 9 contexts (suppressed: 6 from 6)

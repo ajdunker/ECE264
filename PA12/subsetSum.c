@@ -8,7 +8,11 @@
 #define FAILURE -1
 
 typedef struct{
-
+  int *set;
+  int length;
+  int sum;
+  void *countaddress;
+  void *lockaddress
 }Task;
 
 /*
@@ -31,31 +35,52 @@ typedef struct{
 * math library function 'pow()' to assign the index for each thread.
 * pthread.h and math.h are already included in this file.
 */
-void * isSubSetSum(void * set, void * length, void * sum)
+int nextmask(int * mask, int size)
 {
-  
-  unsigned int power_set_size = pow(2, (int*)length);
-  int counter, j;
-  int sum = 0;
-  for(counter = 0; counter < power_set_size; counter++)
+  int i;
+  for (i = 0; i < size && mask[i]; i++) mask[i] = 0; // clear left most 1s in the mask
+  if (i < size) 
     {
-      for(j = 0; j < set_size; j++)
-	{
-	  if(counter & (1<<j))
-	    {
-	      sum += (int*)set[j];
-	    }
-	}
-      if(sum == (int*)sum)
-	{
-	  
-	}
-      sum = 0;
+      mask[i] = 1; // set next position to 1
+      return 1;
     }
+  // return 0 if all masks have been enumerated
+  return 0;
+}
+void * isSubSetSum(void * arg)
+{
+  Task * arguments = (Task *)arg;
+  printf("%d\n", arguments->set[0]);
+  pthread_mutex_lock(&lock);
+
+  pthread_mutex_unlock(&lock);
+  pthread_exit(NULL);
 } 
 
 int subsetSum(int * intset, int length, int N, int numThread)
 { 
+  printf("Data we're looking for:\nLength: %d / Sum: %d\n\n\n", length, N);
+  int i = 0;
   int count = 0;
+  Task * doit = malloc(sizeof(Task));
+  doit -> length = length;
+  doit -> sum = N;
+  doit -> countadress = &count;
+  doit -> set = intset;
+  pthread_t threads[numThread];
+  pthread_mutex_t lock;
+  pthread_mutex_init(&lock, NULL);
   
+  for(i = 0; i < numThread; i++)
+    {
+      pthread_create(&threads[i], NULL, isSubSetSum, (void*)doit);
+    }
+  for(i = 0; i < numThread; i++)
+    {
+      pthread_join(threads[i], NULL);
+    }
+  free(doit);
+  pthread_mutex_destroy(&lock);
+  printf("Count: %d\n", count);
+  return count;
 }
