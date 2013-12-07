@@ -1,0 +1,98 @@
+==7702== Memcheck, a memory error detector
+==7702== Copyright (C) 2002-2011, and GNU GPL'd, by Julian Seward et al.
+==7702== Using Valgrind-3.7.0 and LibVEX; rerun with -h for copyright info
+==7702== Command: ./pa12 inputs/input8_set inputs/input8_num outputs/output8 8
+==7702== Parent PID: 7701
+==7702== 
+--7702-- 
+--7702-- Valgrind options:
+--7702--    --suppressions=/usr/lib/valgrind/debian-libc6-dbg.supp
+--7702--    --tool=memcheck
+--7702--    --leak-check=full
+--7702--    --verbose
+--7702--    --show-reachable=yes
+--7702--    --log-file=outputs/memoutput7
+--7702-- Contents of /proc/version:
+--7702--   Linux version 3.5.0-41-generic (buildd@akateko) (gcc version 4.6.3 (Ubuntu/Linaro 4.6.3-1ubuntu5) ) #64~precise1-Ubuntu SMP Thu Sep 12 16:50:04 UTC 2013
+--7702-- Arch and hwcaps: AMD64, amd64-sse3
+--7702-- Page sizes: currently 4096, max supported 4096
+--7702-- Valgrind library directory: /usr/lib/valgrind
+--7702-- Reading syms from /home/alex/ECE264/ECE264/PA12/pa12 (0x400000)
+--7702-- Reading syms from /lib/x86_64-linux-gnu/ld-2.15.so (0x4000000)
+--7702--   Considering /lib/x86_64-linux-gnu/ld-2.15.so ..
+--7702--   .. CRC mismatch (computed 269450ce wanted 94894502)
+--7702--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.15.so ..
+--7702--   .. CRC is valid
+--7702-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux (0x38000000)
+--7702--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
+--7702--   .. CRC mismatch (computed fd32bc40 wanted 1b1bde8c)
+--7702--    object doesn't have a symbol table
+--7702--    object doesn't have a dynamic symbol table
+--7702-- Reading suppressions file: /usr/lib/valgrind/debian-libc6-dbg.supp
+--7702-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==7702== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-7702-by-alex-on-???
+==7702== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-7702-by-alex-on-???
+==7702== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-7702-by-alex-on-???
+==7702== 
+==7702== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==7702== don't want to do, unless you know exactly what you're doing,
+==7702== or are doing some strange experiment):
+==7702==   /usr/lib/valgrind/../../bin/vgdb --pid=7702 ...command...
+==7702== 
+==7702== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==7702==   /path/to/gdb ./pa12
+==7702== and then give GDB the following command
+==7702==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=7702
+==7702== --pid is optional if only one valgrind process is running
+==7702== 
+--7702-- REDIR: 0x40189e0 (strlen) redirected to 0x380625c7 (???)
+--7702-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so (0x4a25000)
+--7702--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
+--7702--   .. CRC mismatch (computed 8f05ac98 wanted c6d0ab1a)
+--7702--    object doesn't have a symbol table
+--7702-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so (0x4c27000)
+--7702--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
+--7702--   .. CRC mismatch (computed fc059af4 wanted ffc668e8)
+--7702--    object doesn't have a symbol table
+--7702-- REDIR: 0x4018850 (index) redirected to 0x4c2bc60 (index)
+--7702-- REDIR: 0x40188d0 (strcmp) redirected to 0x4c2cc20 (strcmp)
+--7702-- Reading syms from /lib/x86_64-linux-gnu/libpthread-2.15.so (0x4e32000)
+--7702--   Considering /lib/x86_64-linux-gnu/libpthread-2.15.so ..
+--7702--   .. CRC mismatch (computed 8e430e5b wanted e619a829)
+--7702--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libpthread-2.15.so ..
+--7702--   .. CRC is valid
+--7702-- Reading syms from /lib/x86_64-linux-gnu/libc-2.15.so (0x504f000)
+--7702--   Considering /lib/x86_64-linux-gnu/libc-2.15.so ..
+--7702--   .. CRC mismatch (computed d1cc6f49 wanted 7994f9f0)
+--7702--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.15.so ..
+--7702--   .. CRC is valid
+--7702-- REDIR: 0x50dbe40 (strcasecmp) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
+--7702-- REDIR: 0x50d81e0 (strnlen) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
+--7702-- REDIR: 0x50de110 (strncasecmp) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
+--7702-- REDIR: 0x50d9bd0 (__GI_strrchr) redirected to 0x4c2ba80 (__GI_strrchr)
+--7702-- REDIR: 0x50d1f50 (malloc) redirected to 0x4c2b660 (malloc)
+--7702-- REDIR: 0x50d2560 (free) redirected to 0x4c2a7c0 (free)
+--7702-- REDIR: 0xffffffffff600000 (???) redirected to 0x380625b3 (???)
+--7702-- REDIR: 0x50d32c0 (calloc) redirected to 0x4c29cf0 (calloc)
+--7702-- Reading syms from /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x5a0f000)
+--7702--   Considering /lib/x86_64-linux-gnu/libgcc_s.so.1 ..
+--7702--   .. CRC mismatch (computed c8e4b229 wanted 098e39f6)
+--7702--    object doesn't have a symbol table
+--7702-- REDIR: 0x50d80b0 (strlen) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
+--7702-- REDIR: 0x50d8100 (__GI_strlen) redirected to 0x4c2bfc0 (__GI_strlen)
+--7702-- REDIR: 0x50e1d10 (strchrnul) redirected to 0x4c2e3b0 (strchrnul)
+--7702-- REDIR: 0x50dac20 (memset) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
+--7702-- REDIR: 0x50e5620 (__memset_x86_64) redirected to 0x4c2e080 (memset)
+--7702-- Discarding syms at 0x5a118d0-0x5a21198 in /lib/x86_64-linux-gnu/libgcc_s.so.1 due to munmap()
+==7702== 
+==7702== HEAP SUMMARY:
+==7702==     in use at exit: 0 bytes in 0 blocks
+==7702==   total heap usage: 69 allocs, 69 frees, 6,190 bytes allocated
+==7702== 
+==7702== All heap blocks were freed -- no leaks are possible
+==7702== 
+==7702== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--7702-- 
+--7702-- used_suppression:      2 dl-hack3-cond-1
+==7702== 
+==7702== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)

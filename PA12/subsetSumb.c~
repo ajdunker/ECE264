@@ -28,7 +28,7 @@ typedef struct{
 * Arguments:
 *    intset - pointer to an array of a integer set
 *    length - size (length) of the integer set
-*    N - target sum value
+*    N - target sum value //
 *    numThread - number of threads 
 * Return value:
 * numOfSolutions - Number of nonempty subsets in which the subsetSum value 

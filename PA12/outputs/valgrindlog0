@@ -1,76 +1,279 @@
-==21644== Memcheck, a memory error detector
-==21644== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
-==21644== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
-==21644== Command: ./pa12 inputs/input1_set inputs/input1_num outputs/output1 4
-==21644== Parent PID: 19156
-==21644== 
---21644-- 
---21644-- Valgrind options:
---21644--    --tool=memcheck
---21644--    --leak-check=full
---21644--    --verbose
---21644--    --log-file=outputs/valgrindlog0
---21644-- Contents of /proc/version:
---21644--   Linux version 2.6.32-431.el6.x86_64 (mockbuild@x86-023.build.eng.bos.redhat.com) (gcc version 4.4.7 20120313 (Red Hat 4.4.7-4) (GCC) ) #1 SMP Sun Nov 10 22:19:54 EST 2013
---21644-- Arch and hwcaps: AMD64, amd64-sse3-cx16
---21644-- Page sizes: currently 4096, max supported 4096
---21644-- Valgrind library directory: /usr/lib64/valgrind
---21644-- Reading syms from /home/shay/a/adunker/ECE264/solutions/ECE264/PA12/pa12
---21644-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux
---21644--    object doesn't have a dynamic symbol table
---21644-- Reading syms from /lib64/ld-2.12.so
---21644-- Scheduler: using generic scheduler lock implementation.
---21644-- Reading suppressions file: /usr/lib64/valgrind/default.supp
-==21644== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-21644-by-adunker-on-ecelinux09.ecn.purdue.edu
-==21644== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-21644-by-adunker-on-ecelinux09.ecn.purdue.edu
-==21644== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-21644-by-adunker-on-ecelinux09.ecn.purdue.edu
-==21644== 
-==21644== TO CONTROL THIS PROCESS USING vgdb (which you probably
-==21644== don't want to do, unless you know exactly what you're doing,
-==21644== or are doing some strange experiment):
-==21644==   /usr/lib64/valgrind/../../bin/vgdb --pid=21644 ...command...
-==21644== 
-==21644== TO DEBUG THIS PROCESS USING GDB: start GDB like this
-==21644==   /path/to/gdb ./pa12
-==21644== and then give GDB the following command
-==21644==   target remote | /usr/lib64/valgrind/../../bin/vgdb --pid=21644
-==21644== --pid is optional if only one valgrind process is running
-==21644== 
---21644-- REDIR: 0x3483817530 (strlen) redirected to 0x38049551 (vgPlain_amd64_linux_REDIR_FOR_strlen)
---21644-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so
---21644-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so
---21644-- REDIR: 0x34838173a0 (index) redirected to 0x4a07bf0 (index)
---21644-- REDIR: 0x3483817420 (strcmp) redirected to 0x4a08530 (strcmp)
---21644-- Reading syms from /lib64/libpthread-2.12.so
---21644-- Reading syms from /lib64/libm-2.12.so
---21644-- Reading syms from /lib64/libc-2.12.so
---21644-- REDIR: 0x3483c84fb0 (strcasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
---21644-- REDIR: 0x3483c87270 (strncasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
---21644-- REDIR: 0x3483c81440 (__GI_strlen) redirected to 0x4a07f70 (__GI_strlen)
---21644-- REDIR: 0x3483c82f20 (__GI_strrchr) redirected to 0x4a07a70 (__GI_strrchr)
---21644-- REDIR: 0x3483c7a920 (malloc) redirected to 0x4a0696c (malloc)
---21644-- REDIR: 0x3483c7b800 (free) redirected to 0x4a06369 (free)
---21644-- REDIR: 0xffffffffff600000 (???) redirected to 0x38049533 (vgPlain_amd64_linux_REDIR_FOR_vgettimeofday)
---21644-- REDIR: 0x3483c8add0 (strchrnul) redirected to 0x4a09f10 (strchrnul)
---21644-- REDIR: 0x3483c7a560 (calloc) redirected to 0x4a056d7 (calloc)
---21644-- Reading syms from /lib64/libgcc_s-4.4.7-20120601.so.1
---21644--    object doesn't have a symbol table
---21644-- REDIR: 0x3483c81400 (strlen) redirected to 0x480155c (_vgnU_ifunc_wrapper)
---21644-- REDIR: 0x3483d33860 (__strlen_sse42) redirected to 0x4a07f50 (strlen)
---21644-- REDIR: 0x3483c847e0 (mempcpy) redirected to 0x4a09f80 (mempcpy)
---21644-- REDIR: 0x3483c83c80 (memset) redirected to 0x480155c (_vgnU_ifunc_wrapper)
---21644-- REDIR: 0x3483c83cc0 (__GI_memset) redirected to 0x4a09a10 (memset)
---21644-- Discarding syms at 0x348a402910-0x348a412f78 in /lib64/libgcc_s-4.4.7-20120601.so.1 due to munmap()
-==21644== 
-==21644== HEAP SUMMARY:
-==21644==     in use at exit: 0 bytes in 0 blocks
-==21644==   total heap usage: 17 allocs, 17 frees, 4,672 bytes allocated
-==21644== 
-==21644== All heap blocks were freed -- no leaks are possible
-==21644== 
-==21644== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 6 from 6)
---21644-- 
---21644-- used_suppression:      4 U1004-ARM-_dl_relocate_object
---21644-- used_suppression:      2 glibc-2.5.x-on-SUSE-10.2-(PPC)-2a
-==21644== 
-==21644== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 6 from 6)
+==4651== Memcheck, a memory error detector
+==4651== Copyright (C) 2002-2011, and GNU GPL'd, by Julian Seward et al.
+==4651== Using Valgrind-3.7.0 and LibVEX; rerun with -h for copyright info
+==4651== Command: ./pa12 inputs/input4_set inputs/input4_num outputs/output0 8
+==4651== Parent PID: 1890
+==4651== 
+--4651-- 
+--4651-- Valgrind options:
+--4651--    --suppressions=/usr/lib/valgrind/debian-libc6-dbg.supp
+--4651--    --tool=memcheck
+--4651--    --leak-check=full
+--4651--    --verbose
+--4651--    --log-file=outputs/valgrindlog0
+--4651-- Contents of /proc/version:
+--4651--   Linux version 3.5.0-41-generic (buildd@akateko) (gcc version 4.6.3 (Ubuntu/Linaro 4.6.3-1ubuntu5) ) #64~precise1-Ubuntu SMP Thu Sep 12 16:50:04 UTC 2013
+--4651-- Arch and hwcaps: AMD64, amd64-sse3
+--4651-- Page sizes: currently 4096, max supported 4096
+--4651-- Valgrind library directory: /usr/lib/valgrind
+--4651-- Reading syms from /home/alex/ECE264/ECE264/PA12/pa12 (0x400000)
+--4651-- Reading syms from /lib/x86_64-linux-gnu/ld-2.15.so (0x4000000)
+--4651--   Considering /lib/x86_64-linux-gnu/ld-2.15.so ..
+--4651--   .. CRC mismatch (computed 269450ce wanted 94894502)
+--4651--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.15.so ..
+--4651--   .. CRC is valid
+--4651-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux (0x38000000)
+--4651--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
+--4651--   .. CRC mismatch (computed fd32bc40 wanted 1b1bde8c)
+--4651--    object doesn't have a symbol table
+--4651--    object doesn't have a dynamic symbol table
+--4651-- Reading suppressions file: /usr/lib/valgrind/debian-libc6-dbg.supp
+--4651-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==4651== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-4651-by-alex-on-???
+==4651== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-4651-by-alex-on-???
+==4651== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-4651-by-alex-on-???
+==4651== 
+==4651== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==4651== don't want to do, unless you know exactly what you're doing,
+==4651== or are doing some strange experiment):
+==4651==   /usr/lib/valgrind/../../bin/vgdb --pid=4651 ...command...
+==4651== 
+==4651== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==4651==   /path/to/gdb ./pa12
+==4651== and then give GDB the following command
+==4651==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=4651
+==4651== --pid is optional if only one valgrind process is running
+==4651== 
+--4651-- REDIR: 0x40189e0 (strlen) redirected to 0x380625c7 (???)
+--4651-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so (0x4a25000)
+--4651--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
+--4651--   .. CRC mismatch (computed 8f05ac98 wanted c6d0ab1a)
+--4651--    object doesn't have a symbol table
+--4651-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so (0x4c27000)
+--4651--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
+--4651--   .. CRC mismatch (computed fc059af4 wanted ffc668e8)
+--4651--    object doesn't have a symbol table
+--4651-- REDIR: 0x4018850 (index) redirected to 0x4c2bc60 (index)
+--4651-- REDIR: 0x40188d0 (strcmp) redirected to 0x4c2cc20 (strcmp)
+--4651-- Reading syms from /lib/x86_64-linux-gnu/libpthread-2.15.so (0x4e32000)
+--4651--   Considering /lib/x86_64-linux-gnu/libpthread-2.15.so ..
+--4651--   .. CRC mismatch (computed 8e430e5b wanted e619a829)
+--4651--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libpthread-2.15.so ..
+--4651--   .. CRC is valid
+--4651-- Reading syms from /lib/x86_64-linux-gnu/libc-2.15.so (0x504f000)
+--4651--   Considering /lib/x86_64-linux-gnu/libc-2.15.so ..
+--4651--   .. CRC mismatch (computed d1cc6f49 wanted 7994f9f0)
+--4651--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.15.so ..
+--4651--   .. CRC is valid
+--4651-- REDIR: 0x50dbe40 (strcasecmp) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
+--4651-- REDIR: 0x50d81e0 (strnlen) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
+--4651-- REDIR: 0x50de110 (strncasecmp) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
+--4651-- REDIR: 0x50d9bd0 (__GI_strrchr) redirected to 0x4c2ba80 (__GI_strrchr)
+--4651-- REDIR: 0x50d1f50 (malloc) redirected to 0x4c2b660 (malloc)
+--4651-- REDIR: 0x50d2560 (free) redirected to 0x4c2a7c0 (free)
+--4651-- REDIR: 0xffffffffff600000 (???) redirected to 0x380625b3 (???)
+--4651-- REDIR: 0x50d32c0 (calloc) redirected to 0x4c29cf0 (calloc)
+==4651== Thread 2:
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E3BE93: pthread_mutex_lock (pthread_mutex_lock.c:51)
+==4651==    by 0x40121B: DoStuff (subsetSum.c:188)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E37766: __pthread_mutex_lock_full (pthread_mutex_lock.c:139)
+==4651==    by 0x40121B: DoStuff (subsetSum.c:188)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E37781: __pthread_mutex_lock_full (pthread_mutex_lock.c:139)
+==4651==    by 0x40121B: DoStuff (subsetSum.c:188)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E37794: __pthread_mutex_lock_full (pthread_mutex_lock.c:139)
+==4651==    by 0x40121B: DoStuff (subsetSum.c:188)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E3779C: __pthread_mutex_lock_full (pthread_mutex_lock.c:139)
+==4651==    by 0x40121B: DoStuff (subsetSum.c:188)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E3D043: pthread_mutex_unlock (pthread_mutex_unlock.c:38)
+==4651==    by 0x401238: DoStuff (subsetSum.c:195)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E37CF8: __pthread_mutex_unlock_full (pthread_mutex_unlock.c:86)
+==4651==    by 0x401238: DoStuff (subsetSum.c:195)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E37D3F: __pthread_mutex_unlock_full (pthread_mutex_unlock.c:86)
+==4651==    by 0x401238: DoStuff (subsetSum.c:195)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E37D64: __pthread_mutex_unlock_full (pthread_mutex_unlock.c:86)
+==4651==    by 0x401238: DoStuff (subsetSum.c:195)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E37D6A: __pthread_mutex_unlock_full (pthread_mutex_unlock.c:86)
+==4651==    by 0x401238: DoStuff (subsetSum.c:195)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E37D6F: __pthread_mutex_unlock_full (pthread_mutex_unlock.c:86)
+==4651==    by 0x401238: DoStuff (subsetSum.c:195)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+--4651-- Reading syms from /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x600f000)
+--4651--   Considering /lib/x86_64-linux-gnu/libgcc_s.so.1 ..
+--4651--   .. CRC mismatch (computed c8e4b229 wanted 098e39f6)
+--4651--    object doesn't have a symbol table
+--4651-- REDIR: 0x50d80b0 (strlen) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
+--4651-- REDIR: 0x50d8100 (__GI_strlen) redirected to 0x4c2bfc0 (__GI_strlen)
+--4651-- REDIR: 0x50e1d10 (strchrnul) redirected to 0x4c2e3b0 (strchrnul)
+--4651-- REDIR: 0x50dac20 (memset) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
+--4651-- REDIR: 0x50e5620 (__memset_x86_64) redirected to 0x4c2e080 (memset)
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E3BEA0: pthread_mutex_lock (pthread_mutex_lock.c:56)
+==4651==    by 0x40121B: DoStuff (subsetSum.c:188)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E3BEB4: pthread_mutex_lock (pthread_mutex_lock.c:61)
+==4651==    by 0x40121B: DoStuff (subsetSum.c:188)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E3BEC0: pthread_mutex_lock (pthread_mutex_lock.c:62)
+==4651==    by 0x40121B: DoStuff (subsetSum.c:188)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E3D047: pthread_mutex_unlock (pthread_mutex_unlock.c:41)
+==4651==    by 0x401238: DoStuff (subsetSum.c:195)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+--4651-- Discarding syms at 0x60118d0-0x6021198 in /lib/x86_64-linux-gnu/libgcc_s.so.1 due to munmap()
+==4651== 
+==4651== HEAP SUMMARY:
+==4651==     in use at exit: 0 bytes in 0 blocks
+==4651==   total heap usage: 75 allocs, 75 frees, 7,822 bytes allocated
+==4651== 
+==4651== All heap blocks were freed -- no leaks are possible
+==4651== 
+==4651== Use --track-origins=yes to see where uninitialised values come from
+==4651== ERROR SUMMARY: 165 errors from 15 contexts (suppressed: 2 from 2)
+==4651== 
+==4651== 1 errors in context 1 of 15:
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E37D6F: __pthread_mutex_unlock_full (pthread_mutex_unlock.c:86)
+==4651==    by 0x401238: DoStuff (subsetSum.c:195)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== 
+==4651== 1 errors in context 2 of 15:
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E37D6A: __pthread_mutex_unlock_full (pthread_mutex_unlock.c:86)
+==4651==    by 0x401238: DoStuff (subsetSum.c:195)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== 
+==4651== 1 errors in context 3 of 15:
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E37D64: __pthread_mutex_unlock_full (pthread_mutex_unlock.c:86)
+==4651==    by 0x401238: DoStuff (subsetSum.c:195)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== 
+==4651== 1 errors in context 4 of 15:
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E37D3F: __pthread_mutex_unlock_full (pthread_mutex_unlock.c:86)
+==4651==    by 0x401238: DoStuff (subsetSum.c:195)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== 
+==4651== 1 errors in context 5 of 15:
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E37CF8: __pthread_mutex_unlock_full (pthread_mutex_unlock.c:86)
+==4651==    by 0x401238: DoStuff (subsetSum.c:195)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== 
+==4651== 1 errors in context 6 of 15:
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E3779C: __pthread_mutex_lock_full (pthread_mutex_lock.c:139)
+==4651==    by 0x40121B: DoStuff (subsetSum.c:188)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== 
+==4651== 1 errors in context 7 of 15:
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E37794: __pthread_mutex_lock_full (pthread_mutex_lock.c:139)
+==4651==    by 0x40121B: DoStuff (subsetSum.c:188)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== 
+==4651== 1 errors in context 8 of 15:
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E37781: __pthread_mutex_lock_full (pthread_mutex_lock.c:139)
+==4651==    by 0x40121B: DoStuff (subsetSum.c:188)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== 
+==4651== 1 errors in context 9 of 15:
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E37766: __pthread_mutex_lock_full (pthread_mutex_lock.c:139)
+==4651==    by 0x40121B: DoStuff (subsetSum.c:188)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== 
+==4651== 7 errors in context 10 of 15:
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E3BEC0: pthread_mutex_lock (pthread_mutex_lock.c:62)
+==4651==    by 0x40121B: DoStuff (subsetSum.c:188)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== 
+==4651== 7 errors in context 11 of 15:
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E3BEB4: pthread_mutex_lock (pthread_mutex_lock.c:61)
+==4651==    by 0x40121B: DoStuff (subsetSum.c:188)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== 
+==4651== 35 errors in context 12 of 15:
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E3D047: pthread_mutex_unlock (pthread_mutex_unlock.c:41)
+==4651==    by 0x401238: DoStuff (subsetSum.c:195)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== 
+==4651== 35 errors in context 13 of 15:
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E3BEA0: pthread_mutex_lock (pthread_mutex_lock.c:56)
+==4651==    by 0x40121B: DoStuff (subsetSum.c:188)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== 
+==4651== 36 errors in context 14 of 15:
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E3D043: pthread_mutex_unlock (pthread_mutex_unlock.c:38)
+==4651==    by 0x401238: DoStuff (subsetSum.c:195)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+==4651== 
+==4651== 36 errors in context 15 of 15:
+==4651== Conditional jump or move depends on uninitialised value(s)
+==4651==    at 0x4E3BE93: pthread_mutex_lock (pthread_mutex_lock.c:51)
+==4651==    by 0x40121B: DoStuff (subsetSum.c:188)
+==4651==    by 0x4E39E99: start_thread (pthread_create.c:308)
+==4651== 
+--4651-- 
+--4651-- used_suppression:      2 dl-hack3-cond-1
+==4651== 
+==4651== ERROR SUMMARY: 165 errors from 15 contexts (suppressed: 2 from 2)

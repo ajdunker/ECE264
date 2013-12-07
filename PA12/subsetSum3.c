@@ -8,15 +8,12 @@
 #define FAILURE -1
 
 typedef struct{
-  int *set;
-  int length;
+	int * set;
+	int length;
 	int N;
-	int * start; // starting point of current part of start
-	int count; // number of elements in the given array slice
-	int tid; // thread id
-	pthread_mutex_t * mutexSum; // pointer to the actual mutex object for synchronzing the totalSum sum of the array elements
-	int * totalSum; // pointer to totalSum, the overall sum of all elements in the array;
-	
+	int sum;
+	int * counter;	
+	pthread_mutex_t * mutex;
 }Task;
 
 /*
@@ -39,53 +36,68 @@ typedef struct{
 * math library function 'pow()' to assign the index for each thread.
 * pthread.h and math.h are already included in this file.
 */
-int nextmask(int * mask, int size)
+void Destroy(Task * t)
 {
-  int i;
-  for (i = 0; i < size && mask[i]; i++) mask[i] = 0; // clear left most 1s in the mask
-  if (i < size) 
+  if(t==NULL)
     {
-      mask[i] = 1; // set next position to 1
-      return 1;
+      return;
     }
-  // return 0 if all masks have been enumerated
-  return 0;
+  free(t->counter);
+  free(t);
 }
+Task * Build(int * intset, int length, int N, pthread_mutex_t * mutexsum)
+{
+  Task * t = malloc(sizeof(Task));
+  t -> set = intset;
+  t -> length = length;
+  t -> sum = 0;
+  t -> N = N;
+  t -> counter = malloc(sizeof(int));
+  t -> mutex = mutexsum;
+  *(t -> counter) = 0;
+  return t;
+}
+
 void * isSubSetSum(void * arg)
 {
-  Task * arguments = (Task *)arg;
-	int * totalSum = td -> totalSum;
-  printf("%d\n", arguments->set[0]);
-  pthread_mutex_lock(td -> mutexSum);
-	*totalSum += sum;
-  pthread_mutex_unlock(td -> mutexSum);
+  Task * t = (Task *)arg;
+  //lock here
+  pthread_mutex_lock(t->mutex);
+  printf("Old value: %d\n", *(t->counter));
+  //increment
+  *(t->counter) += 1;
+  printf("New value: %d\n", *(t->counter));
+  //unlock here
+  pthread_mutex_unlock(t->mutex);
+  printf("Incrementing counter. Value %d\n", *(t->counter));
   pthread_exit(NULL);
 } 
 
 int subsetSum(int * intset, int length, int N, int numThread)
 { 
-  printf("Data we're looking for:\nLength: %d / Sum: %d\n\n\n", length, N);
+  pthread_mutex_t mutexsum;
   int i = 0;
-  int count = 0;
-  Task * doit = malloc(sizeof(Task));
-  doit -> length = length;
-  doit -> sum = N;
-  doit -> countadress = &count;
-  doit -> set = intset;
+  int r = 0;
+  Task * t = Build(intset, length, N, &mutexsum);
+  //int * counter = t -> counter;
   pthread_t threads[numThread];
-  pthread_mutex_t mutexSum;
-  pthread_mutex_init(&mutexSum, NULL);
-  
   for(i = 0; i < numThread; i++)
     {
-      pthread_create(&threads[i], NULL, isSubSetSum, (void*)doit);
+      r = pthread_create(&threads[i], NULL, isSubSetSum, (void *)t);
+      if(r)
+	{
+	  printf("ERROR: return code from pthread_create() is %d\n", r);
+	  //exit(-1);
+	}
     }
   for(i = 0; i < numThread; i++)
     {
       pthread_join(threads[i], NULL);
     }
-  free(doit);
-  pthread_mutex_destroy(&lock);
-  printf("Count: %d\n", count);
-  return count;
+  printf("Counter: %d\n", *(t->counter));
+  //Destroy(t);
+  int x = *(t->counter);
+  Destroy(t);
+  printf("Final count %d\n", x);
+  return x;
 }
