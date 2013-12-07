@@ -1,0 +1,106 @@
+==1216== Memcheck, a memory error detector
+==1216== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+==1216== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+==1216== Command: ./pa12 inputs/input12_set inputs/input12_num outputs/output12 8
+==1216== Parent PID: 29412
+==1216== 
+--1216-- 
+--1216-- Valgrind options:
+--1216--    --suppressions=/usr/lib/valgrind/debian-libc6-dbg.supp
+--1216--    --tool=memcheck
+--1216--    --leak-check=full
+--1216--    --verbose
+--1216--    --log-file=outputsvalgrindlog
+--1216-- Contents of /proc/version:
+--1216--   Linux version 3.8.0-19-generic (buildd@allspice) (gcc version 4.7.3 (Ubuntu/Linaro 4.7.3-1ubuntu1) ) #29-Ubuntu SMP Wed Apr 17 18:16:28 UTC 2013
+--1216-- Arch and hwcaps: AMD64, amd64-sse3-cx16-avx
+--1216-- Page sizes: currently 4096, max supported 4096
+--1216-- Valgrind library directory: /usr/lib/valgrind
+--1216-- Reading syms from /home/austin/ECE264/solutions/PA12/pa12
+--1216-- Reading syms from /lib/x86_64-linux-gnu/ld-2.17.so
+--1216--   Considering /lib/x86_64-linux-gnu/ld-2.17.so ..
+--1216--   .. CRC mismatch (computed 0e805c9a wanted d5b108bd)
+--1216--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.17.so ..
+--1216--   .. CRC is valid
+--1216--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.17.so ..
+--1216--   .. CRC is valid
+--1216-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux
+--1216--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
+--1216--   .. CRC mismatch (computed 8dadd6e3 wanted 096f8488)
+--1216--    object doesn't have a symbol table
+--1216--    object doesn't have a dynamic symbol table
+--1216-- Scheduler: using generic scheduler lock implementation.
+--1216-- Reading suppressions file: /usr/lib/valgrind/debian-libc6-dbg.supp
+--1216-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==1216== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-1216-by-austin-on-???
+==1216== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-1216-by-austin-on-???
+==1216== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-1216-by-austin-on-???
+==1216== 
+==1216== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==1216== don't want to do, unless you know exactly what you're doing,
+==1216== or are doing some strange experiment):
+==1216==   /usr/lib/valgrind/../../bin/vgdb --pid=1216 ...command...
+==1216== 
+==1216== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==1216==   /path/to/gdb ./pa12
+==1216== and then give GDB the following command
+==1216==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=1216
+==1216== --pid is optional if only one valgrind process is running
+==1216== 
+--1216-- REDIR: 0x4018f40 (strlen) redirected to 0x3806c7e1 (???)
+--1216-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so
+--1216--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
+--1216--   .. CRC mismatch (computed 7ae7d82a wanted 34ea3d89)
+--1216--    object doesn't have a symbol table
+--1216-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so
+--1216--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
+--1216--   .. CRC mismatch (computed 272279e5 wanted bc83f658)
+--1216--    object doesn't have a symbol table
+--1216-- REDIR: 0x4018db0 (index) redirected to 0x4c2d440 (index)
+--1216-- REDIR: 0x4018e30 (strcmp) redirected to 0x4c2e480 (strcmp)
+--1216-- Reading syms from /lib/x86_64-linux-gnu/libpthread-2.17.so
+--1216--   Considering /lib/x86_64-linux-gnu/libpthread-2.17.so ..
+--1216--   .. CRC mismatch (computed da6bb310 wanted d2233b1f)
+--1216--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libpthread-2.17.so ..
+--1216--   .. CRC is valid
+--1216--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libpthread-2.17.so ..
+--1216--   .. CRC is valid
+--1216-- Reading syms from /lib/x86_64-linux-gnu/libc-2.17.so
+--1216--   Considering /lib/x86_64-linux-gnu/libc-2.17.so ..
+--1216--   .. CRC mismatch (computed 7a0d6b10 wanted 5a2fe04b)
+--1216--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.17.so ..
+--1216--   .. CRC is valid
+--1216--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.17.so ..
+--1216--   .. CRC is valid
+--1216-- REDIR: 0x50de990 (strcasecmp) redirected to 0x4a25710 (_vgnU_ifunc_wrapper)
+--1216-- REDIR: 0x50dad20 (strnlen) redirected to 0x4a25710 (_vgnU_ifunc_wrapper)
+--1216-- REDIR: 0x50e0c60 (strncasecmp) redirected to 0x4a25710 (_vgnU_ifunc_wrapper)
+--1216-- REDIR: 0x50dd7a0 (memset) redirected to 0x4a25710 (_vgnU_ifunc_wrapper)
+--1216-- REDIR: 0x50dd750 (memcpy@GLIBC_2.2.5) redirected to 0x4a25710 (_vgnU_ifunc_wrapper)
+--1216-- REDIR: 0x50dc710 (__GI_strrchr) redirected to 0x4c2d260 (__GI_strrchr)
+--1216-- REDIR: 0x50d4520 (malloc) redirected to 0x4c2cd10 (malloc)
+--1216-- REDIR: 0x50d49b0 (free) redirected to 0x4c2ba00 (free)
+--1216-- REDIR: 0xffffffffff600000 (???) redirected to 0x3806c7c3 (???)
+--1216-- REDIR: 0x50d5010 (calloc) redirected to 0x4c2ab30 (calloc)
+--1216-- Reading syms from /lib/x86_64-linux-gnu/libgcc_s.so.1
+--1216--   Considering /lib/x86_64-linux-gnu/libgcc_s.so.1 ..
+--1216--   .. CRC mismatch (computed 3e210681 wanted d01e18f4)
+--1216--    object doesn't have a symbol table
+--1216-- REDIR: 0x50dabf0 (strlen) redirected to 0x4a25710 (_vgnU_ifunc_wrapper)
+--1216-- REDIR: 0x51ba700 (__strlen_sse2_pminub) redirected to 0x4c2d7a0 (strlen)
+--1216-- REDIR: 0x50e4b30 (strchrnul) redirected to 0x4c2fea0 (strchrnul)
+--1216-- REDIR: 0x50dac40 (__GI_strlen) redirected to 0x4c2d7c0 (__GI_strlen)
+--1216-- REDIR: 0x50dd7e0 (__GI_memset) redirected to 0x4c2f950 (memset)
+--1216-- Discarding syms at 0x601ca40-0x602b9b8 in /lib/x86_64-linux-gnu/libgcc_s.so.1 due to munmap()
+==1216== 
+==1216== HEAP SUMMARY:
+==1216==     in use at exit: 0 bytes in 0 blocks
+==1216==   total heap usage: 75 allocs, 75 frees, 7,846 bytes allocated
+==1216== 
+==1216== All heap blocks were freed -- no leaks are possible
+==1216== 
+==1216== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--1216-- 
+--1216-- used_suppression:      2 dl-hack3-cond-1
+==1216== 
+==1216== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)

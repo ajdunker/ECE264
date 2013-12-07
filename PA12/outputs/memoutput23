@@ -1,98 +1,77 @@
-==8158== Memcheck, a memory error detector
-==8158== Copyright (C) 2002-2011, and GNU GPL'd, by Julian Seward et al.
-==8158== Using Valgrind-3.7.0 and LibVEX; rerun with -h for copyright info
-==8158== Command: ./pa12 inputs/input24_set inputs/input24_num outputs/output24 4
-==8158== Parent PID: 8157
-==8158== 
---8158-- 
---8158-- Valgrind options:
---8158--    --suppressions=/usr/lib/valgrind/debian-libc6-dbg.supp
---8158--    --tool=memcheck
---8158--    --leak-check=full
---8158--    --verbose
---8158--    --show-reachable=yes
---8158--    --log-file=outputs/memoutput23
---8158-- Contents of /proc/version:
---8158--   Linux version 3.5.0-41-generic (buildd@akateko) (gcc version 4.6.3 (Ubuntu/Linaro 4.6.3-1ubuntu5) ) #64~precise1-Ubuntu SMP Thu Sep 12 16:50:04 UTC 2013
---8158-- Arch and hwcaps: AMD64, amd64-sse3
---8158-- Page sizes: currently 4096, max supported 4096
---8158-- Valgrind library directory: /usr/lib/valgrind
---8158-- Reading syms from /home/alex/ECE264/ECE264/PA12/pa12 (0x400000)
---8158-- Reading syms from /lib/x86_64-linux-gnu/ld-2.15.so (0x4000000)
---8158--   Considering /lib/x86_64-linux-gnu/ld-2.15.so ..
---8158--   .. CRC mismatch (computed 269450ce wanted 94894502)
---8158--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.15.so ..
---8158--   .. CRC is valid
---8158-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux (0x38000000)
---8158--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
---8158--   .. CRC mismatch (computed fd32bc40 wanted 1b1bde8c)
---8158--    object doesn't have a symbol table
---8158--    object doesn't have a dynamic symbol table
---8158-- Reading suppressions file: /usr/lib/valgrind/debian-libc6-dbg.supp
---8158-- Reading suppressions file: /usr/lib/valgrind/default.supp
-==8158== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-8158-by-alex-on-???
-==8158== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-8158-by-alex-on-???
-==8158== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-8158-by-alex-on-???
-==8158== 
-==8158== TO CONTROL THIS PROCESS USING vgdb (which you probably
-==8158== don't want to do, unless you know exactly what you're doing,
-==8158== or are doing some strange experiment):
-==8158==   /usr/lib/valgrind/../../bin/vgdb --pid=8158 ...command...
-==8158== 
-==8158== TO DEBUG THIS PROCESS USING GDB: start GDB like this
-==8158==   /path/to/gdb ./pa12
-==8158== and then give GDB the following command
-==8158==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=8158
-==8158== --pid is optional if only one valgrind process is running
-==8158== 
---8158-- REDIR: 0x40189e0 (strlen) redirected to 0x380625c7 (???)
---8158-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so (0x4a25000)
---8158--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
---8158--   .. CRC mismatch (computed 8f05ac98 wanted c6d0ab1a)
---8158--    object doesn't have a symbol table
---8158-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so (0x4c27000)
---8158--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
---8158--   .. CRC mismatch (computed fc059af4 wanted ffc668e8)
---8158--    object doesn't have a symbol table
---8158-- REDIR: 0x4018850 (index) redirected to 0x4c2bc60 (index)
---8158-- REDIR: 0x40188d0 (strcmp) redirected to 0x4c2cc20 (strcmp)
---8158-- Reading syms from /lib/x86_64-linux-gnu/libpthread-2.15.so (0x4e32000)
---8158--   Considering /lib/x86_64-linux-gnu/libpthread-2.15.so ..
---8158--   .. CRC mismatch (computed 8e430e5b wanted e619a829)
---8158--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libpthread-2.15.so ..
---8158--   .. CRC is valid
---8158-- Reading syms from /lib/x86_64-linux-gnu/libc-2.15.so (0x504f000)
---8158--   Considering /lib/x86_64-linux-gnu/libc-2.15.so ..
---8158--   .. CRC mismatch (computed d1cc6f49 wanted 7994f9f0)
---8158--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.15.so ..
---8158--   .. CRC is valid
---8158-- REDIR: 0x50dbe40 (strcasecmp) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
---8158-- REDIR: 0x50d81e0 (strnlen) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
---8158-- REDIR: 0x50de110 (strncasecmp) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
---8158-- REDIR: 0x50d9bd0 (__GI_strrchr) redirected to 0x4c2ba80 (__GI_strrchr)
---8158-- REDIR: 0x50d1f50 (malloc) redirected to 0x4c2b660 (malloc)
---8158-- REDIR: 0x50d2560 (free) redirected to 0x4c2a7c0 (free)
---8158-- REDIR: 0xffffffffff600000 (???) redirected to 0x380625b3 (???)
---8158-- REDIR: 0x50d32c0 (calloc) redirected to 0x4c29cf0 (calloc)
---8158-- Reading syms from /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x5a0f000)
---8158--   Considering /lib/x86_64-linux-gnu/libgcc_s.so.1 ..
---8158--   .. CRC mismatch (computed c8e4b229 wanted 098e39f6)
---8158--    object doesn't have a symbol table
---8158-- REDIR: 0x50d80b0 (strlen) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
---8158-- REDIR: 0x50d8100 (__GI_strlen) redirected to 0x4c2bfc0 (__GI_strlen)
---8158-- REDIR: 0x50e1d10 (strchrnul) redirected to 0x4c2e3b0 (strchrnul)
---8158-- REDIR: 0x50dac20 (memset) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
---8158-- REDIR: 0x50e5620 (__memset_x86_64) redirected to 0x4c2e080 (memset)
---8158-- Discarding syms at 0x5a118d0-0x5a21198 in /lib/x86_64-linux-gnu/libgcc_s.so.1 due to munmap()
-==8158== 
-==8158== HEAP SUMMARY:
-==8158==     in use at exit: 0 bytes in 0 blocks
-==8158==   total heap usage: 31 allocs, 31 frees, 4,822 bytes allocated
-==8158== 
-==8158== All heap blocks were freed -- no leaks are possible
-==8158== 
-==8158== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
---8158-- 
---8158-- used_suppression:      2 dl-hack3-cond-1
-==8158== 
-==8158== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+==74229== Memcheck, a memory error detector
+==74229== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+==74229== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+==74229== Command: ./pa12 inputs/input24_set inputs/input24_num outputs/output24 4
+==74229== Parent PID: 74228
+==74229== 
+--74229-- 
+--74229-- Valgrind options:
+--74229--    --tool=memcheck
+--74229--    --leak-check=full
+--74229--    --verbose
+--74229--    --show-reachable=yes
+--74229--    --log-file=outputs/memoutput23
+--74229-- Contents of /proc/version:
+--74229--   Linux version 2.6.32-358.6.2.el6.x86_64 (mockbuild@x86-022.build.eng.bos.redhat.com) (gcc version 4.4.7 20120313 (Red Hat 4.4.7-3) (GCC) ) #1 SMP Tue May 14 15:48:21 EDT 2013
+--74229-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--74229-- Page sizes: currently 4096, max supported 4096
+--74229-- Valgrind library directory: /usr/lib64/valgrind
+--74229-- Reading syms from /home/shay/a/ece264e6/PA12/pa12
+--74229-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux
+--74229--    object doesn't have a dynamic symbol table
+--74229-- Reading syms from /lib64/ld-2.12.so
+--74229-- Scheduler: using generic scheduler lock implementation.
+--74229-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+==74229== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-74229-by-ece264e6-on-quatro01.ecn.purdue.edu
+==74229== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-74229-by-ece264e6-on-quatro01.ecn.purdue.edu
+==74229== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-74229-by-ece264e6-on-quatro01.ecn.purdue.edu
+==74229== 
+==74229== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==74229== don't want to do, unless you know exactly what you're doing,
+==74229== or are doing some strange experiment):
+==74229==   /usr/lib64/valgrind/../../bin/vgdb --pid=74229 ...command...
+==74229== 
+==74229== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==74229==   /path/to/gdb ./pa12
+==74229== and then give GDB the following command
+==74229==   target remote | /usr/lib64/valgrind/../../bin/vgdb --pid=74229
+==74229== --pid is optional if only one valgrind process is running
+==74229== 
+--74229-- REDIR: 0x3036417530 (strlen) redirected to 0x38049551 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--74229-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so
+--74229-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so
+--74229-- REDIR: 0x30364173a0 (index) redirected to 0x4a07bf0 (index)
+--74229-- REDIR: 0x3036417420 (strcmp) redirected to 0x4a08530 (strcmp)
+--74229-- Reading syms from /lib64/libpthread-2.12.so
+--74229-- Reading syms from /lib64/libm-2.12.so
+--74229-- Reading syms from /lib64/libc-2.12.so
+--74229-- REDIR: 0x3036884fb0 (strcasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--74229-- REDIR: 0x3036887270 (strncasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--74229-- REDIR: 0x3036881440 (__GI_strlen) redirected to 0x4a07f70 (__GI_strlen)
+--74229-- REDIR: 0x3036882f20 (__GI_strrchr) redirected to 0x4a07a70 (__GI_strrchr)
+--74229-- REDIR: 0x303687a920 (malloc) redirected to 0x4a0696c (malloc)
+--74229-- REDIR: 0x303687b800 (free) redirected to 0x4a06369 (free)
+--74229-- REDIR: 0xffffffffff600000 (???) redirected to 0x38049533 (vgPlain_amd64_linux_REDIR_FOR_vgettimeofday)
+--74229-- REDIR: 0x303687a560 (calloc) redirected to 0x4a056d7 (calloc)
+--74229-- Reading syms from /lib64/libgcc_s-4.4.7-20120601.so.1
+--74229--    object doesn't have a symbol table
+--74229-- REDIR: 0x3036881400 (strlen) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--74229-- REDIR: 0x3036933860 (__strlen_sse42) redirected to 0x4a07f50 (strlen)
+--74229-- REDIR: 0x303688add0 (strchrnul) redirected to 0x4a09f10 (strchrnul)
+--74229-- REDIR: 0x30368847e0 (mempcpy) redirected to 0x4a09f80 (mempcpy)
+--74229-- REDIR: 0x3036883c80 (memset) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--74229-- REDIR: 0x3036883cc0 (__GI_memset) redirected to 0x4a09a10 (memset)
+--74229-- Discarding syms at 0x303d002910-0x303d012f78 in /lib64/libgcc_s-4.4.7-20120601.so.1 due to munmap()
+==74229== 
+==74229== HEAP SUMMARY:
+==74229==     in use at exit: 0 bytes in 0 blocks
+==74229==   total heap usage: 31 allocs, 31 frees, 4,792 bytes allocated
+==74229== 
+==74229== All heap blocks were freed -- no leaks are possible
+==74229== 
+==74229== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 6 from 6)
+--74229-- 
+--74229-- used_suppression:      4 U1004-ARM-_dl_relocate_object
+--74229-- used_suppression:      2 glibc-2.5.x-on-SUSE-10.2-(PPC)-2a
+==74229== 
+==74229== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 6 from 6)
